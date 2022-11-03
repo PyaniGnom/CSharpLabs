@@ -1,0 +1,11 @@
+D:\C_Sharp\SreenSaver\bin\Debug\SreenSaver.exe.config
+D:\C_Sharp\SreenSaver\bin\Debug\SreenSaver.exe
+D:\C_Sharp\SreenSaver\bin\Debug\SreenSaver.pdb
+D:\C_Sharp\SreenSaver\obj\Debug\SreenSaver.csproj.AssemblyReference.cache
+D:\C_Sharp\SreenSaver\obj\Debug\SreenSaver.csproj.SuggestedBindingRedirects.cache
+D:\C_Sharp\SreenSaver\obj\Debug\SreenSaver.Form1.resources
+D:\C_Sharp\SreenSaver\obj\Debug\SreenSaver.Properties.Resources.resources
+D:\C_Sharp\SreenSaver\obj\Debug\SreenSaver.csproj.GenerateResource.cache
+D:\C_Sharp\SreenSaver\obj\Debug\SreenSaver.csproj.CoreCompileInputs.cache
+D:\C_Sharp\SreenSaver\obj\Debug\SreenSaver.exe
+D:\C_Sharp\SreenSaver\obj\Debug\SreenSaver.pdb

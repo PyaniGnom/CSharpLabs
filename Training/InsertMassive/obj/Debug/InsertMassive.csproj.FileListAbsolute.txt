@@ -1,0 +1,8 @@
+D:\C_Sharp\Training\InsertMassive\obj\Debug\InsertMassive.csproj.AssemblyReference.cache
+D:\C_Sharp\Training\InsertMassive\obj\Debug\InsertMassive.csproj.SuggestedBindingRedirects.cache
+D:\C_Sharp\Training\InsertMassive\obj\Debug\InsertMassive.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Training\InsertMassive\bin\Debug\InsertMassive.exe.config
+D:\C_Sharp\Training\InsertMassive\bin\Debug\InsertMassive.exe
+D:\C_Sharp\Training\InsertMassive\bin\Debug\InsertMassive.pdb
+D:\C_Sharp\Training\InsertMassive\obj\Debug\InsertMassive.exe
+D:\C_Sharp\Training\InsertMassive\obj\Debug\InsertMassive.pdb

@@ -1,0 +1,5 @@
+TEXT;MediumVioletRed;Hello, good to see you!;Times New Roman;25;70;150
+CIRCLE/ELLIPSE;Brown;100;150;200;100
+RECTANGLE;OrangeRed;70;90;190;120
+LINE;Yellow;6;150;250;250;150
+TRIANGLE;HotPink;100;100;100;200;300;150

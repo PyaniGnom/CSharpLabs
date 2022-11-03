@@ -1,0 +1,8 @@
+D:\C_Sharp\Training\triangle\bin\Debug\triangle.exe.config
+D:\C_Sharp\Training\triangle\bin\Debug\triangle.exe
+D:\C_Sharp\Training\triangle\bin\Debug\triangle.pdb
+D:\C_Sharp\Training\triangle\obj\Debug\triangle.csproj.AssemblyReference.cache
+D:\C_Sharp\Training\triangle\obj\Debug\triangle.csproj.SuggestedBindingRedirects.cache
+D:\C_Sharp\Training\triangle\obj\Debug\triangle.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Training\triangle\obj\Debug\triangle.exe
+D:\C_Sharp\Training\triangle\obj\Debug\triangle.pdb

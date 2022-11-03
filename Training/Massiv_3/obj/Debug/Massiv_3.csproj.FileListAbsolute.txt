@@ -1,0 +1,8 @@
+D:\C_Sharp\Training\Massiv_3\bin\Debug\Massiv_3.exe.config
+D:\C_Sharp\Training\Massiv_3\bin\Debug\Massiv_3.exe
+D:\C_Sharp\Training\Massiv_3\bin\Debug\Massiv_3.pdb
+D:\C_Sharp\Training\Massiv_3\obj\Debug\Massiv_3.csproj.AssemblyReference.cache
+D:\C_Sharp\Training\Massiv_3\obj\Debug\Massiv_3.csproj.SuggestedBindingRedirects.cache
+D:\C_Sharp\Training\Massiv_3\obj\Debug\Massiv_3.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Training\Massiv_3\obj\Debug\Massiv_3.exe
+D:\C_Sharp\Training\Massiv_3\obj\Debug\Massiv_3.pdb

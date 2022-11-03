@@ -1,0 +1,15 @@
+D:\C_Sharp\Training\Проверка на четность\bin\Debug\net6.0\Проверка на четность.exe
+D:\C_Sharp\Training\Проверка на четность\bin\Debug\net6.0\Проверка на четность.deps.json
+D:\C_Sharp\Training\Проверка на четность\bin\Debug\net6.0\Проверка на четность.runtimeconfig.json
+D:\C_Sharp\Training\Проверка на четность\bin\Debug\net6.0\Проверка на четность.dll
+D:\C_Sharp\Training\Проверка на четность\bin\Debug\net6.0\Проверка на четность.pdb
+D:\C_Sharp\Training\Проверка на четность\obj\Debug\net6.0\Проверка на четность.csproj.AssemblyReference.cache
+D:\C_Sharp\Training\Проверка на четность\obj\Debug\net6.0\Проверка на четность.GeneratedMSBuildEditorConfig.editorconfig
+D:\C_Sharp\Training\Проверка на четность\obj\Debug\net6.0\Проверка на четность.AssemblyInfoInputs.cache
+D:\C_Sharp\Training\Проверка на четность\obj\Debug\net6.0\Проверка на четность.AssemblyInfo.cs
+D:\C_Sharp\Training\Проверка на четность\obj\Debug\net6.0\Проверка на четность.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Training\Проверка на четность\obj\Debug\net6.0\Проверка на четность.dll
+D:\C_Sharp\Training\Проверка на четность\obj\Debug\net6.0\refint\Проверка на четность.dll
+D:\C_Sharp\Training\Проверка на четность\obj\Debug\net6.0\Проверка на четность.pdb
+D:\C_Sharp\Training\Проверка на четность\obj\Debug\net6.0\Проверка на четность.genruntimeconfig.cache
+D:\C_Sharp\Training\Проверка на четность\obj\Debug\net6.0\ref\Проверка на четность.dll

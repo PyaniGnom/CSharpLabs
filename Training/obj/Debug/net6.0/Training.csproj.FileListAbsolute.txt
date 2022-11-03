@@ -1,0 +1,15 @@
+D:\C_Sharp\Training\bin\Debug\net6.0\Training.exe
+D:\C_Sharp\Training\bin\Debug\net6.0\Training.deps.json
+D:\C_Sharp\Training\bin\Debug\net6.0\Training.runtimeconfig.json
+D:\C_Sharp\Training\bin\Debug\net6.0\Training.dll
+D:\C_Sharp\Training\bin\Debug\net6.0\Training.pdb
+D:\C_Sharp\Training\obj\Debug\net6.0\Training.csproj.AssemblyReference.cache
+D:\C_Sharp\Training\obj\Debug\net6.0\Training.GeneratedMSBuildEditorConfig.editorconfig
+D:\C_Sharp\Training\obj\Debug\net6.0\Training.AssemblyInfoInputs.cache
+D:\C_Sharp\Training\obj\Debug\net6.0\Training.AssemblyInfo.cs
+D:\C_Sharp\Training\obj\Debug\net6.0\Training.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Training\obj\Debug\net6.0\Training.dll
+D:\C_Sharp\Training\obj\Debug\net6.0\refint\Training.dll
+D:\C_Sharp\Training\obj\Debug\net6.0\Training.pdb
+D:\C_Sharp\Training\obj\Debug\net6.0\Training.genruntimeconfig.cache
+D:\C_Sharp\Training\obj\Debug\net6.0\ref\Training.dll

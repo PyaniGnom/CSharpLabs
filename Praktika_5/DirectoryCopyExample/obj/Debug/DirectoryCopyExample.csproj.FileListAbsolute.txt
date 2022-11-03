@@ -1,0 +1,8 @@
+D:\C_Sharp\Praktika_5\DirectoryCopyExample\bin\Debug\DirectoryCopyExample.exe.config
+D:\C_Sharp\Praktika_5\DirectoryCopyExample\bin\Debug\DirectoryCopyExample.exe
+D:\C_Sharp\Praktika_5\DirectoryCopyExample\bin\Debug\DirectoryCopyExample.pdb
+D:\C_Sharp\Praktika_5\DirectoryCopyExample\obj\Debug\DirectoryCopyExample.csproj.AssemblyReference.cache
+D:\C_Sharp\Praktika_5\DirectoryCopyExample\obj\Debug\DirectoryCopyExample.csproj.SuggestedBindingRedirects.cache
+D:\C_Sharp\Praktika_5\DirectoryCopyExample\obj\Debug\DirectoryCopyExample.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Praktika_5\DirectoryCopyExample\obj\Debug\DirectoryCopyExample.exe
+D:\C_Sharp\Praktika_5\DirectoryCopyExample\obj\Debug\DirectoryCopyExample.pdb

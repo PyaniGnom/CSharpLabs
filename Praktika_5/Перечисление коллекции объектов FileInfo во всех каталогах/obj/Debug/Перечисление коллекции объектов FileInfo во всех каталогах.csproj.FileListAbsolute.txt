@@ -1,0 +1,8 @@
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов FileInfo во всех каталогах\bin\Debug\Перечисление коллекции объектов FileInfo во всех каталогах.exe.config
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов FileInfo во всех каталогах\bin\Debug\Перечисление коллекции объектов FileInfo во всех каталогах.exe
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов FileInfo во всех каталогах\bin\Debug\Перечисление коллекции объектов FileInfo во всех каталогах.pdb
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов FileInfo во всех каталогах\obj\Debug\Перечисление коллекции объектов FileInfo во всех каталогах.csproj.AssemblyReference.cache
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов FileInfo во всех каталогах\obj\Debug\Перечисление коллекции объектов FileInfo во всех каталогах.csproj.SuggestedBindingRedirects.cache
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов FileInfo во всех каталогах\obj\Debug\Перечисление коллекции объектов FileInfo во всех каталогах.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов FileInfo во всех каталогах\obj\Debug\Перечисление коллекции объектов FileInfo во всех каталогах.exe
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов FileInfo во всех каталогах\obj\Debug\Перечисление коллекции объектов FileInfo во всех каталогах.pdb

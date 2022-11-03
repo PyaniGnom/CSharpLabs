@@ -1,0 +1,8 @@
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов DirectoryInfo\bin\Debug\Перечисление коллекции объектов DirectoryInfo.exe.config
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов DirectoryInfo\bin\Debug\Перечисление коллекции объектов DirectoryInfo.exe
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов DirectoryInfo\bin\Debug\Перечисление коллекции объектов DirectoryInfo.pdb
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов DirectoryInfo\obj\Debug\Перечисление коллекции объектов DirectoryInfo.csproj.AssemblyReference.cache
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов DirectoryInfo\obj\Debug\Перечисление коллекции объектов DirectoryInfo.csproj.SuggestedBindingRedirects.cache
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов DirectoryInfo\obj\Debug\Перечисление коллекции объектов DirectoryInfo.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов DirectoryInfo\obj\Debug\Перечисление коллекции объектов DirectoryInfo.exe
+D:\C_Sharp\Praktika_5\Перечисление коллекции объектов DirectoryInfo\obj\Debug\Перечисление коллекции объектов DirectoryInfo.pdb

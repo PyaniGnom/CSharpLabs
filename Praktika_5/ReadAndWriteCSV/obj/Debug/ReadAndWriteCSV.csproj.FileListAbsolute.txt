@@ -1,0 +1,11 @@
+D:\C_Sharp\Praktika_5\ReadAndWriteCSV\obj\Debug\ReadAndWriteCSV.csproj.AssemblyReference.cache
+D:\C_Sharp\Praktika_5\ReadAndWriteCSV\obj\Debug\ReadAndWriteCSV.csproj.SuggestedBindingRedirects.cache
+D:\C_Sharp\Praktika_5\ReadAndWriteCSV\obj\Debug\ReadAndWriteCSV.Form1.resources
+D:\C_Sharp\Praktika_5\ReadAndWriteCSV\obj\Debug\ReadAndWriteCSV.Properties.Resources.resources
+D:\C_Sharp\Praktika_5\ReadAndWriteCSV\obj\Debug\ReadAndWriteCSV.csproj.GenerateResource.cache
+D:\C_Sharp\Praktika_5\ReadAndWriteCSV\obj\Debug\ReadAndWriteCSV.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Praktika_5\ReadAndWriteCSV\bin\Debug\ReadAndWriteCSV.exe.config
+D:\C_Sharp\Praktika_5\ReadAndWriteCSV\bin\Debug\ReadAndWriteCSV.exe
+D:\C_Sharp\Praktika_5\ReadAndWriteCSV\bin\Debug\ReadAndWriteCSV.pdb
+D:\C_Sharp\Praktika_5\ReadAndWriteCSV\obj\Debug\ReadAndWriteCSV.exe
+D:\C_Sharp\Praktika_5\ReadAndWriteCSV\obj\Debug\ReadAndWriteCSV.pdb

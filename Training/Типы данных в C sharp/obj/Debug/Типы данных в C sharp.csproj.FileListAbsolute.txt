@@ -1,0 +1,8 @@
+D:\C_Sharp\Training\Типы данных в C sharp\bin\Debug\Типы данных в C sharp.exe.config
+D:\C_Sharp\Training\Типы данных в C sharp\bin\Debug\Типы данных в C sharp.exe
+D:\C_Sharp\Training\Типы данных в C sharp\bin\Debug\Типы данных в C sharp.pdb
+D:\C_Sharp\Training\Типы данных в C sharp\obj\Debug\Типы данных в C sharp.csproj.AssemblyReference.cache
+D:\C_Sharp\Training\Типы данных в C sharp\obj\Debug\Типы данных в C sharp.csproj.SuggestedBindingRedirects.cache
+D:\C_Sharp\Training\Типы данных в C sharp\obj\Debug\Типы данных в C sharp.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Training\Типы данных в C sharp\obj\Debug\Типы данных в C sharp.exe
+D:\C_Sharp\Training\Типы данных в C sharp\obj\Debug\Типы данных в C sharp.pdb

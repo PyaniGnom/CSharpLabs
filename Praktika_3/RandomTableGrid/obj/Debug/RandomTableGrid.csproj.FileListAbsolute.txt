@@ -1,0 +1,11 @@
+D:\C_Sharp\Praktika_3\RandomTableGrid\bin\Debug\RandomTableGrid.exe.config
+D:\C_Sharp\Praktika_3\RandomTableGrid\bin\Debug\RandomTableGrid.exe
+D:\C_Sharp\Praktika_3\RandomTableGrid\bin\Debug\RandomTableGrid.pdb
+D:\C_Sharp\Praktika_3\RandomTableGrid\obj\Debug\RandomTableGrid.csproj.AssemblyReference.cache
+D:\C_Sharp\Praktika_3\RandomTableGrid\obj\Debug\RandomTableGrid.csproj.SuggestedBindingRedirects.cache
+D:\C_Sharp\Praktika_3\RandomTableGrid\obj\Debug\RandomTableGrid.Form1.resources
+D:\C_Sharp\Praktika_3\RandomTableGrid\obj\Debug\RandomTableGrid.Properties.Resources.resources
+D:\C_Sharp\Praktika_3\RandomTableGrid\obj\Debug\RandomTableGrid.csproj.GenerateResource.cache
+D:\C_Sharp\Praktika_3\RandomTableGrid\obj\Debug\RandomTableGrid.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Praktika_3\RandomTableGrid\obj\Debug\RandomTableGrid.exe
+D:\C_Sharp\Praktika_3\RandomTableGrid\obj\Debug\RandomTableGrid.pdb

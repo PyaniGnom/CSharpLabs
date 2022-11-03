@@ -1,0 +1,8 @@
+D:\C_Sharp\Praktika_5\Перечисление имен каталогов\bin\Debug\Перечисление имен каталогов.exe.config
+D:\C_Sharp\Praktika_5\Перечисление имен каталогов\bin\Debug\Перечисление имен каталогов.exe
+D:\C_Sharp\Praktika_5\Перечисление имен каталогов\bin\Debug\Перечисление имен каталогов.pdb
+D:\C_Sharp\Praktika_5\Перечисление имен каталогов\obj\Debug\Перечисление имен каталогов.csproj.AssemblyReference.cache
+D:\C_Sharp\Praktika_5\Перечисление имен каталогов\obj\Debug\Перечисление имен каталогов.csproj.SuggestedBindingRedirects.cache
+D:\C_Sharp\Praktika_5\Перечисление имен каталогов\obj\Debug\Перечисление имен каталогов.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Praktika_5\Перечисление имен каталогов\obj\Debug\Перечисление имен каталогов.exe
+D:\C_Sharp\Praktika_5\Перечисление имен каталогов\obj\Debug\Перечисление имен каталогов.pdb

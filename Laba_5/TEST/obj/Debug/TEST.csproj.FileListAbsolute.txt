@@ -1,0 +1,12 @@
+D:\C_Sharp\Laba_5\TEST\bin\Debug\TEST.exe.config
+D:\C_Sharp\Laba_5\TEST\bin\Debug\TEST.exe
+D:\C_Sharp\Laba_5\TEST\bin\Debug\TEST.pdb
+D:\C_Sharp\Laba_5\TEST\obj\Debug\TEST.csproj.AssemblyReference.cache
+D:\C_Sharp\Laba_5\TEST\obj\Debug\TEST.csproj.SuggestedBindingRedirects.cache
+D:\C_Sharp\Laba_5\TEST\obj\Debug\TEST.Form1.resources
+D:\C_Sharp\Laba_5\TEST\obj\Debug\TEST.Properties.Resources.resources
+D:\C_Sharp\Laba_5\TEST\obj\Debug\TEST.csproj.GenerateResource.cache
+D:\C_Sharp\Laba_5\TEST\obj\Debug\TEST.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Laba_5\TEST\obj\Debug\TEST.exe
+D:\C_Sharp\Laba_5\TEST\obj\Debug\TEST.pdb
+D:\C_Sharp\Laba_5\TEST\bin\Debug\DataInformation.accdb
