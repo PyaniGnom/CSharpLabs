@@ -23,17 +23,17 @@
 		#region Код, автоматически созданный конструктором форм Windows
 
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
 		{
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-			this.scrllPrep = new System.Windows.Forms.HScrollBar();
-			this.scrllStorage = new System.Windows.Forms.HScrollBar();
-			this.scrllCount = new System.Windows.Forms.HScrollBar();
+			this.scrollPrep = new System.Windows.Forms.HScrollBar();
+			this.scrollStorage = new System.Windows.Forms.HScrollBar();
+			this.scrollCount = new System.Windows.Forms.HScrollBar();
 			this.lblError = new System.Windows.Forms.Label();
 			this.btnDelete = new System.Windows.Forms.Button();
 			this.btnHelp = new System.Windows.Forms.Button();
@@ -69,9 +69,9 @@
 			// 
 			// splitContainer1.Panel1
 			// 
-			this.splitContainer1.Panel1.Controls.Add(this.scrllPrep);
-			this.splitContainer1.Panel1.Controls.Add(this.scrllStorage);
-			this.splitContainer1.Panel1.Controls.Add(this.scrllCount);
+			this.splitContainer1.Panel1.Controls.Add(this.scrollPrep);
+			this.splitContainer1.Panel1.Controls.Add(this.scrollStorage);
+			this.splitContainer1.Panel1.Controls.Add(this.scrollCount);
 			this.splitContainer1.Panel1.Controls.Add(this.lblError);
 			this.splitContainer1.Panel1.Controls.Add(this.btnDelete);
 			this.splitContainer1.Panel1.Controls.Add(this.btnHelp);
@@ -92,36 +92,36 @@
 			this.splitContainer1.SplitterDistance = 380;
 			this.splitContainer1.TabIndex = 0;
 			// 
-			// scrllPrep
+			// scrollPrep
 			// 
-			this.scrllPrep.LargeChange = 1;
-			this.scrllPrep.Location = new System.Drawing.Point(215, 384);
-			this.scrllPrep.Maximum = 999;
-			this.scrllPrep.Name = "scrllPrep";
-			this.scrllPrep.Size = new System.Drawing.Size(155, 20);
-			this.scrllPrep.TabIndex = 14;
-			this.scrllPrep.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrllPrep_Scroll);
+			this.scrollPrep.LargeChange = 1;
+			this.scrollPrep.Location = new System.Drawing.Point(215, 384);
+			this.scrollPrep.Maximum = 999;
+			this.scrollPrep.Name = "scrollPrep";
+			this.scrollPrep.Size = new System.Drawing.Size(155, 20);
+			this.scrollPrep.TabIndex = 14;
+			this.scrollPrep.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollPrep_Scroll);
 			// 
-			// scrllStorage
+			// scrollStorage
 			// 
-			this.scrllStorage.LargeChange = 1;
-			this.scrllStorage.Location = new System.Drawing.Point(215, 263);
-			this.scrllStorage.Maximum = 999;
-			this.scrllStorage.Name = "scrllStorage";
-			this.scrllStorage.Size = new System.Drawing.Size(155, 20);
-			this.scrllStorage.TabIndex = 13;
-			this.scrllStorage.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrllStorage_Scroll);
+			this.scrollStorage.LargeChange = 1;
+			this.scrollStorage.Location = new System.Drawing.Point(215, 263);
+			this.scrollStorage.Maximum = 999;
+			this.scrollStorage.Name = "scrollStorage";
+			this.scrollStorage.Size = new System.Drawing.Size(155, 20);
+			this.scrollStorage.TabIndex = 13;
+			this.scrollStorage.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollStorage_Scroll);
 			// 
-			// scrllCount
+			// scrollCount
 			// 
-			this.scrllCount.LargeChange = 1;
-			this.scrllCount.Location = new System.Drawing.Point(215, 163);
-			this.scrllCount.Maximum = 999;
-			this.scrllCount.Name = "scrllCount";
-			this.scrllCount.Size = new System.Drawing.Size(155, 20);
-			this.scrllCount.TabIndex = 12;
-			this.scrllCount.Value = 1;
-			this.scrllCount.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrllCount_Scroll);
+			this.scrollCount.LargeChange = 1;
+			this.scrollCount.Location = new System.Drawing.Point(215, 163);
+			this.scrollCount.Maximum = 999;
+			this.scrollCount.Name = "scrollCount";
+			this.scrollCount.Size = new System.Drawing.Size(155, 20);
+			this.scrollCount.TabIndex = 12;
+			this.scrollCount.Value = 1;
+			this.scrollCount.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollCount_Scroll);
 			// 
 			// lblError
 			// 
@@ -259,11 +259,7 @@
 			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
 			this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.СolumnName,
-            this.ColumnProductCount,
-            this.ColumnStorageCosts,
-            this.ColumnPreparationCosts});
+			this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.СolumnName, this.ColumnProductCount, this.ColumnStorageCosts, this.ColumnPreparationCosts });
 			this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.dataGridView.Location = new System.Drawing.Point(0, 0);
 			this.dataGridView.Name = "dataGridView";
@@ -336,7 +332,6 @@
 			this.splitContainer1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
 			this.ResumeLayout(false);
-
 		}
 
 		#endregion
@@ -355,9 +350,9 @@
 		private System.Windows.Forms.Button btnHelp;
 		private System.Windows.Forms.Button btnAdd;
 		private System.Windows.Forms.Label lblError;
-		private System.Windows.Forms.HScrollBar scrllCount;
-		private System.Windows.Forms.HScrollBar scrllPrep;
-		private System.Windows.Forms.HScrollBar scrllStorage;
+		private System.Windows.Forms.HScrollBar scrollCount;
+		private System.Windows.Forms.HScrollBar scrollPrep;
+		private System.Windows.Forms.HScrollBar scrollStorage;
 		private System.Windows.Forms.DataGridViewTextBoxColumn СolumnName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ColumnProductCount;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ColumnStorageCosts;

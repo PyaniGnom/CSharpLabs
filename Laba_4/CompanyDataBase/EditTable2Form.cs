@@ -7,10 +7,12 @@ namespace CompanyDataBase
 {
 	public partial class EditTable2Form : Form
 	{
-		private int _selectedRow;
-		private bool _isEditing = false;
-
 		public object[] CodeList;
+
+		private int _selectedRow;
+		private bool _isEditing;
+		private const string ConnectionString =
+			@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\C_Sharp\Laba_4\CompanyDataBase\LR4.accdb;Persist Security Info=True";
 
 		private OleDbConnection _oleDbConnection;
 		private OleDbCommandBuilder _oleDbBuilder;
@@ -105,7 +107,7 @@ namespace CompanyDataBase
 
 		private void EditTable2Form_Load(object sender, EventArgs e)
 		{
-			_oleDbConnection = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\C_Sharp\Laba_4\CompanyDataBase\LR4.accdb;Persist Security Info=True");
+			_oleDbConnection = new OleDbConnection(ConnectionString);
 
 			_oleDbConnection.Open();
 
@@ -160,44 +162,31 @@ namespace CompanyDataBase
 					switch (IsFieldFilledCorrectly())
 					{
 						case "OK":
-							{
-								_dataSet.Tables[0].Rows.Add();
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][0] = cbCompanyCode.Text;
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][1] = txtName.Text;
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][2] = txtProductCode.Text;
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][3] = txtCost1.Text;
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][4] = txtCost2.Text;
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][5] = txtCost3.Text;
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][6] = txtCost4.Text;
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][7] = txtRelease.Text;
+							_dataSet.Tables[0].Rows.Add();
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][0] = cbCompanyCode.Text;
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][1] = txtName.Text;
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][2] = txtProductCode.Text;
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][3] = txtCost1.Text;
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][4] = txtCost2.Text;
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][5] = txtCost3.Text;
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][6] = txtCost4.Text;
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][7] = txtRelease.Text;
 
-								ClearField();
+							ClearField();
 
-								_oleDbDataAdapter.Update(_dataSet.Tables[0]);
-
-								break;
-							}
+							_oleDbDataAdapter.Update(_dataSet.Tables[0]);
+							break;
 
 						case "BIG":
-							{
-								MessageBox.Show("Введенное(ые) значение(я) слишком большое(ые)!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							MessageBox.Show("Введенное(ые) значение(я) слишком большое(ые)!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							break;
 
-								break;
-							}
 						case "EMPTY":
-							{
-								MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							break;
 
-								break;
-							}
 						case "ERROR":
-							{
-								MessageBox.Show("Введите корректные значения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-								break;
-							}
-
-						default:
+							MessageBox.Show("Введите корректные значения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 							break;
 					}
 				}
@@ -205,7 +194,6 @@ namespace CompanyDataBase
 			catch
 			{
 				ReloadData();
-
 				MessageBox.Show("Изделие с таким именем уже существует!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
@@ -214,8 +202,8 @@ namespace CompanyDataBase
 		{
 			if (dataGridView.SelectedRows.Count != 0)
 			{
-				if (MessageBox.Show("Вы уверены, что хотите удалить эту строку(ки)?", "Вы уверены?", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-					== DialogResult.Yes)
+				if (MessageBox.Show("Вы уверены, что хотите удалить эту строку(ки)?", "Вы уверены?", MessageBoxButtons.YesNo,
+						MessageBoxIcon.Question) == DialogResult.Yes)
 				{
 					foreach (DataGridViewRow rows in dataGridView.SelectedRows)
 						dataGridView.Rows.RemoveAt(rows.Index);
@@ -236,30 +224,32 @@ namespace CompanyDataBase
 
 		private void btnEdit_Click(object sender, EventArgs e)
 		{
-			if (dataGridView.SelectedRows.Count == 0)
+			switch (dataGridView.SelectedRows.Count)
 			{
-				MessageBox.Show("Сначала выберите строку!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
-			else if (dataGridView.SelectedRows.Count > 1)
-			{
-				MessageBox.Show("Выберите только одну строку!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
-			else
-			{
-				_isEditing = true;
-				_selectedRow = dataGridView.SelectedRows[0].Index;
-				dataGridView.ClearSelection();
+				case 0:
+					MessageBox.Show("Сначала выберите строку!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					break;
 
-				cbCompanyCode.Enabled = false;
+				case > 1:
+					MessageBox.Show("Выберите только одну строку!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					break;
 
-				cbCompanyCode.Text = _dataSet.Tables[0].Rows[_selectedRow][0].ToString();
-				txtName.Text = _dataSet.Tables[0].Rows[_selectedRow][1].ToString();
-				txtProductCode.Text = _dataSet.Tables[0].Rows[_selectedRow][2].ToString();
-				txtCost1.Text = _dataSet.Tables[0].Rows[_selectedRow][3].ToString();
-				txtCost2.Text = _dataSet.Tables[0].Rows[_selectedRow][4].ToString();
-				txtCost3.Text = _dataSet.Tables[0].Rows[_selectedRow][5].ToString();
-				txtCost4.Text = _dataSet.Tables[0].Rows[_selectedRow][6].ToString();
-				txtRelease.Text = _dataSet.Tables[0].Rows[_selectedRow][7].ToString();
+				default:
+					_isEditing = true;
+					_selectedRow = dataGridView.SelectedRows[0].Index;
+					dataGridView.ClearSelection();
+
+					cbCompanyCode.Enabled = false;
+
+					cbCompanyCode.Text = _dataSet.Tables[0].Rows[_selectedRow][0].ToString();
+					txtName.Text = _dataSet.Tables[0].Rows[_selectedRow][1].ToString();
+					txtProductCode.Text = _dataSet.Tables[0].Rows[_selectedRow][2].ToString();
+					txtCost1.Text = _dataSet.Tables[0].Rows[_selectedRow][3].ToString();
+					txtCost2.Text = _dataSet.Tables[0].Rows[_selectedRow][4].ToString();
+					txtCost3.Text = _dataSet.Tables[0].Rows[_selectedRow][5].ToString();
+					txtCost4.Text = _dataSet.Tables[0].Rows[_selectedRow][6].ToString();
+					txtRelease.Text = _dataSet.Tables[0].Rows[_selectedRow][7].ToString();
+					break;
 			}
 		}
 
@@ -270,51 +260,38 @@ namespace CompanyDataBase
 				switch (IsFieldFilledCorrectly())
 				{
 					case "OK":
+						if (MessageBox.Show("Вы уверены, что хотите сохранить изменения?", "Вы уверены?",
+								MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
 						{
-							if (MessageBox.Show("Вы уверены, что хотите сохранить изменения?", "Вы уверены?", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-								== DialogResult.Yes)
-							{
-								_dataSet.Tables[0].Rows[_selectedRow][0] = cbCompanyCode.Text;
-								_dataSet.Tables[0].Rows[_selectedRow][1] = txtName.Text;
-								_dataSet.Tables[0].Rows[_selectedRow][2] = txtProductCode.Text;
-								_dataSet.Tables[0].Rows[_selectedRow][3] = txtCost1.Text;
-								_dataSet.Tables[0].Rows[_selectedRow][4] = txtCost2.Text;
-								_dataSet.Tables[0].Rows[_selectedRow][5] = txtCost3.Text;
-								_dataSet.Tables[0].Rows[_selectedRow][6] = txtCost4.Text;
-								_dataSet.Tables[0].Rows[_selectedRow][7] = txtRelease.Text;
+							_dataSet.Tables[0].Rows[_selectedRow][0] = cbCompanyCode.Text;
+							_dataSet.Tables[0].Rows[_selectedRow][1] = txtName.Text;
+							_dataSet.Tables[0].Rows[_selectedRow][2] = txtProductCode.Text;
+							_dataSet.Tables[0].Rows[_selectedRow][3] = txtCost1.Text;
+							_dataSet.Tables[0].Rows[_selectedRow][4] = txtCost2.Text;
+							_dataSet.Tables[0].Rows[_selectedRow][5] = txtCost3.Text;
+							_dataSet.Tables[0].Rows[_selectedRow][6] = txtCost4.Text;
+							_dataSet.Tables[0].Rows[_selectedRow][7] = txtRelease.Text;
 
-								_oleDbDataAdapter.Update(_dataSet.Tables[0]);
+							_oleDbDataAdapter.Update(_dataSet.Tables[0]);
 
-								_isEditing = false;
+							_isEditing = false;
 
-								ClearField();
-								cbCompanyCode.Enabled = true;
-								dataGridView.ClearSelection();
-							}
-
-							break;
+							ClearField();
+							cbCompanyCode.Enabled = true;
+							dataGridView.ClearSelection();
 						}
+						break;
 
 					case "BIG":
-						{
-							MessageBox.Show("Введенное(ые) значение(я) слишком большое(ые)!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						MessageBox.Show("Введенное(ые) значение(я) слишком большое(ые)!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						break;
 
-							break;
-						}
 					case "EMPTY":
-						{
-							MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						break;
 
-							break;
-						}
 					case "ERROR":
-						{
-							MessageBox.Show("Введите корректные значения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-							break;
-						}
-
-					default:
+						MessageBox.Show("Введите корректные значения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						break;
 				}
 			}
@@ -331,10 +308,8 @@ namespace CompanyDataBase
 
 		private void txtProductCode_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (!char.IsDigit(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
-			{
+			if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
 				e.Handled = true;
-			}
 		}
 
 		private void txtCost1_KeyPress(object sender, KeyPressEventArgs e)
@@ -343,7 +318,7 @@ namespace CompanyDataBase
 			{
 				return;
 			}
-			else if ((e.KeyChar == '.' || e.KeyChar == ',') && !txtCost1.Text.Contains(".") && !txtCost1.Text.Contains(","))
+			if ((e.KeyChar == '.' || e.KeyChar == ',') && !txtCost1.Text.Contains(".") && !txtCost1.Text.Contains(","))
 			{
 				if (txtCost1.Text == "")
 				{
@@ -355,7 +330,6 @@ namespace CompanyDataBase
 				}
 
 				e.KeyChar = ',';
-				return;
 			}
 			else
 			{
@@ -369,7 +343,7 @@ namespace CompanyDataBase
 			{
 				return;
 			}
-			else if ((e.KeyChar == '.' || e.KeyChar == ',') && !txtCost2.Text.Contains(".") && !txtCost2.Text.Contains(","))
+			if ((e.KeyChar == '.' || e.KeyChar == ',') && !txtCost2.Text.Contains(".") && !txtCost2.Text.Contains(","))
 			{
 				if (txtCost2.Text == "")
 				{
@@ -381,7 +355,6 @@ namespace CompanyDataBase
 				}
 
 				e.KeyChar = ',';
-				return;
 			}
 			else
 			{
@@ -395,7 +368,7 @@ namespace CompanyDataBase
 			{
 				return;
 			}
-			else if ((e.KeyChar == '.' || e.KeyChar == ',') && !txtCost3.Text.Contains(".") && !txtCost3.Text.Contains(","))
+			if ((e.KeyChar == '.' || e.KeyChar == ',') && !txtCost3.Text.Contains(".") && !txtCost3.Text.Contains(","))
 			{
 				if (txtCost3.Text == "")
 				{
@@ -407,7 +380,6 @@ namespace CompanyDataBase
 				}
 
 				e.KeyChar = ',';
-				return;
 			}
 			else
 			{
@@ -421,7 +393,7 @@ namespace CompanyDataBase
 			{
 				return;
 			}
-			else if ((e.KeyChar == '.' || e.KeyChar == ',') && !txtCost4.Text.Contains(".") && !txtCost4.Text.Contains(","))
+			if ((e.KeyChar == '.' || e.KeyChar == ',') && !txtCost4.Text.Contains(".") && !txtCost4.Text.Contains(","))
 			{
 				if (txtCost4.Text == "")
 				{
@@ -433,7 +405,6 @@ namespace CompanyDataBase
 				}
 
 				e.KeyChar = ',';
-				return;
 			}
 			else
 			{

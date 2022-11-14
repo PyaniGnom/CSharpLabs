@@ -1,8 +1,0 @@
-D:\C_Sharp\Laba_3\test\bin\Debug\test.exe.config
-D:\C_Sharp\Laba_3\test\bin\Debug\test.exe
-D:\C_Sharp\Laba_3\test\bin\Debug\test.pdb
-D:\C_Sharp\Laba_3\test\obj\Debug\test.csproj.AssemblyReference.cache
-D:\C_Sharp\Laba_3\test\obj\Debug\test.csproj.SuggestedBindingRedirects.cache
-D:\C_Sharp\Laba_3\test\obj\Debug\test.csproj.CoreCompileInputs.cache
-D:\C_Sharp\Laba_3\test\obj\Debug\test.exe
-D:\C_Sharp\Laba_3\test\obj\Debug\test.pdb

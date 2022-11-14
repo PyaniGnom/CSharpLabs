@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
+// ReSharper disable StringLiteralTypo
 
 namespace Praktik_DataBase
 {
@@ -10,12 +11,12 @@ namespace Praktik_DataBase
 		private string _sourceTable = "Отечественные_авторы";
 
 		private int _selectedRow;
-		private bool _isEditing = false;
+		private bool _isEditing;
 
 		private OleDbConnection _oleDbConnection;
 		private OleDbCommandBuilder _oleDbBuilder;
 		private OleDbDataAdapter _oleDbDataAdapter;
-		private readonly DataSet _dataSet = new DataSet();
+		private readonly DataSet _dataSet = new();
 
 		public Form1()
 		{
@@ -25,7 +26,7 @@ namespace Praktik_DataBase
 		private void LoadData()
 		{
 			_oleDbDataAdapter = new OleDbDataAdapter($"SELECT * FROM {_sourceTable} ORDER BY [Код_книги]", _oleDbConnection);
-				
+
 			_oleDbBuilder = new OleDbCommandBuilder(_oleDbDataAdapter);
 
 			_oleDbBuilder.GetInsertCommand();
@@ -42,13 +43,13 @@ namespace Praktik_DataBase
 			_dataSet.Tables[0].Clear();
 
 			_oleDbDataAdapter = new OleDbDataAdapter($"SELECT * FROM {_sourceTable}  ORDER BY [Код_книги]", _oleDbConnection);
-			
+
 			_oleDbBuilder = new OleDbCommandBuilder(_oleDbDataAdapter);
-			
+
 			_oleDbBuilder.GetInsertCommand();
 			_oleDbBuilder.GetUpdateCommand();
 			_oleDbBuilder.GetDeleteCommand();
-			
+
 			_oleDbDataAdapter.Fill(_dataSet);
 
 			dataGridView.DataSource = _dataSet.Tables[0];
@@ -153,43 +154,30 @@ namespace Praktik_DataBase
 					switch (IsFieldFilledCorrectly())
 					{
 						case "OK":
-							{
-								_dataSet.Tables[0].Rows.Add();
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][0] = txtCode.Text;
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][1] = txtAuthor.Text;
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][2] = txtTitle.Text;
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][3] = txtYear.Text;
+							_dataSet.Tables[0].Rows.Add();
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][0] = txtCode.Text;
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][1] = txtAuthor.Text;
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][2] = txtTitle.Text;
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][3] = txtYear.Text;
 
-								ClearField();
+							ClearField();
 
-								_oleDbDataAdapter.Update(_dataSet.Tables[0]);
-
-								break;
-							}
+							_oleDbDataAdapter.Update(_dataSet.Tables[0]);
+							break;
 
 						case "BIG":
-							{
-								lblError.Visible = true;
-								lblError.Text = "Введенное(ые) значение(я)\nслишком большое(ые)!";
+							lblError.Visible = true;
+							lblError.Text = "Введенное(ые) значение(я)\nслишком большое(ые)!";
+							break;
 
-								break;
-							}
 						case "EMPTY":
-							{
-								lblError.Visible = true;
-								lblError.Text = "Заполните все поля!";
+							lblError.Visible = true;
+							lblError.Text = "Заполните все поля!";
+							break;
 
-								break;
-							}
 						case "ERROR":
-							{
-								lblError.Visible = true;
-								lblError.Text = "Введите корректные значения!";
-
-								break;
-							}
-
-						default:
+							lblError.Visible = true;
+							lblError.Text = "Введите корректные значения!";
 							break;
 					}
 				}
@@ -266,48 +254,35 @@ namespace Praktik_DataBase
 					switch (IsFieldFilledCorrectly())
 					{
 						case "OK":
+							if (MessageBox.Show("Вы уверены, что хотите сохранить изменения?", "Вы уверены?",
+								MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
 							{
-								if (MessageBox.Show("Вы уверены, что хотите сохранить изменения?", "Вы уверены?",
-									MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-								{
-									_dataSet.Tables[0].Rows[_selectedRow][0] = txtCode.Text;
-									_dataSet.Tables[0].Rows[_selectedRow][1] = txtAuthor.Text;
-									_dataSet.Tables[0].Rows[_selectedRow][2] = txtTitle.Text;
-									_dataSet.Tables[0].Rows[_selectedRow][3] = txtYear.Text;
+								_dataSet.Tables[0].Rows[_selectedRow][0] = txtCode.Text;
+								_dataSet.Tables[0].Rows[_selectedRow][1] = txtAuthor.Text;
+								_dataSet.Tables[0].Rows[_selectedRow][2] = txtTitle.Text;
+								_dataSet.Tables[0].Rows[_selectedRow][3] = txtYear.Text;
 
-									_oleDbDataAdapter.Update(_dataSet.Tables[0]);
+								_oleDbDataAdapter.Update(_dataSet.Tables[0]);
 
-									_isEditing = false;
+								_isEditing = false;
 
-									ClearField();
-								}
-
-								break;
+								ClearField();
 							}
+							break;
 
 						case "BIG":
-							{
-								lblError.Visible = true;
-								lblError.Text = "Введенное(ые) значение(я)\nслишком большое(ые)!";
-								
-								break;
-							}
+							lblError.Visible = true;
+							lblError.Text = "Введенное(ые) значение(я)\nслишком большое(ые)!";
+							break;
+
 						case "EMPTY":
-							{
-								lblError.Visible = true;
-								lblError.Text = "Заполните все поля!";
+							lblError.Visible = true;
+							lblError.Text = "Заполните все поля!";
+							break;
 
-								break;
-							}
 						case "ERROR":
-							{
-								lblError.Visible = true;
-								lblError.Text = "Введите корректные значения!";
-
-								break;
-							}
-
-						default:
+							lblError.Visible = true;
+							lblError.Text = "Введите корректные значения!";
 							break;
 					}
 				}
@@ -357,7 +332,7 @@ namespace Praktik_DataBase
 				lblError.Visible = true;
 				lblError.Text = "Сначала введите запрос";
 			}
-			
+
 		}
 
 		private void btnReset_Click(object sender, EventArgs e)
@@ -365,9 +340,7 @@ namespace Praktik_DataBase
 			lblError.Visible = false;
 
 			_dataSet.Clear();
-
 			txtSearch.Text = "";
-
 			LoadData();
 		}
 
@@ -376,7 +349,6 @@ namespace Praktik_DataBase
 			_dataSet.Clear();
 
 			_sourceTable = "Отечественные_авторы";
-
 			LoadData();
 		}
 
@@ -385,21 +357,18 @@ namespace Praktik_DataBase
 			_dataSet.Clear();
 
 			_sourceTable = "Зарубежные_авторы";
-
 			ReloadData();
 		}
 
 		private void tsmExit_Click(object sender, EventArgs e)
 		{
-			this.Close();
+			Close();
 		}
 
 		private void txtCode_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (!char.IsDigit(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
-			{
+			if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
 				e.Handled = true;
-			}
 		}
 
 		private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)

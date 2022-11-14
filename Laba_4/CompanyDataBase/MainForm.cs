@@ -12,6 +12,8 @@ namespace CompanyDataBase
 		private object[] _companyCodeList;
 
 		private string _searchCompanyName;
+		private const string ConnectionString =
+			@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\C_Sharp\Laba_4\CompanyDataBase\LR4.accdb;Persist Security Info=True";
 
 		private OleDbConnection _oleDbConnection;
 		private OleDbDataAdapter _oleDbDataAdapter;
@@ -77,12 +79,12 @@ namespace CompanyDataBase
 		private void UpdateData()
 		{
 			GetListCompany();
-			GetRows(ref _companyList, "Company", 0);
+			_companyList = GetRows("Company", 0);
 
 			cbSecondTask.Items.Clear();
 			cbSecondTask.Items.AddRange(_companyList);
 
-			GetRows(ref _productCodeList, "Task2", 3);
+			_productCodeList = GetRows("Task2", 3);
 
 			cbThirdTask.Items.Clear();
 			cbThirdTask.Items.AddRange(_productCodeList);
@@ -110,18 +112,20 @@ namespace CompanyDataBase
 			_oleDbDataAdapter.Fill(_dataSet, "CodeCompany");
 		}
 
-		private void GetRows(ref object[] list, string tableTitle, int columnNumber)
+		private object[] GetRows(string tableTitle, int columnNumber)
 		{
 			DataTable dataTable = _dataSet.Tables[tableTitle];
 			int length = dataTable.Rows.Count;
 
-			list = new object[length];
+			object[] list = new object[length];
 
 			for (int i = 0; i < length; i++)
 				list[i] = dataTable.Rows[i][columnNumber].ToString();
+
+			return list;
 		}
 
-		private void offOtherElements()
+		private void OffOtherElements()
 		{
 			txtThirdTask.Enabled = false;
 			cbThirdTask.Enabled = false;
@@ -139,7 +143,7 @@ namespace CompanyDataBase
 			cbSecondTask.DropDownStyle = ComboBoxStyle.DropDownList;
 			cbThirdTask.DropDownStyle = ComboBoxStyle.DropDownList;
 
-			_oleDbConnection = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\C_Sharp\Laba_4\CompanyDataBase\LR4.accdb;Persist Security Info=True");
+			_oleDbConnection = new OleDbConnection(ConnectionString);
 			_oleDbConnection.Open();
 
 			LoadData();
@@ -150,7 +154,7 @@ namespace CompanyDataBase
 		private void btnFirstTask_Click(object sender, EventArgs e)
 		{
 			lblError.Visible = false;
-			offOtherElements();
+			OffOtherElements();
 
 			LoadDataTask1(_queries.FirstTask());
 		}
@@ -169,7 +173,7 @@ namespace CompanyDataBase
 				LoadDataTask2(_queries.SecondTask(ref _searchCompanyName));
 
 				GetListCompany();
-				GetRows(ref _productCodeList, "Task2", 3);
+				_productCodeList = GetRows("Task2", 3);
 
 				cbThirdTask.Items.Clear();
 				cbThirdTask.Items.AddRange(_productCodeList);
@@ -184,7 +188,7 @@ namespace CompanyDataBase
 		private void btnThirdTask_Click(object sender, EventArgs e)
 		{
 			lblError.Visible = false;
-			offOtherElements();
+			OffOtherElements();
 
 			LoadDataTask3(_queries.ThirdTask());
 		}
@@ -220,7 +224,7 @@ namespace CompanyDataBase
 		private void btnReset_Click(object sender, EventArgs e)
 		{
 			lblError.Visible = false;
-			offOtherElements();
+			OffOtherElements();
 
 			LoadData();
 		}
@@ -248,7 +252,7 @@ namespace CompanyDataBase
 		private void EditProductDBToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			GetListCodeCompany();
-			GetRows(ref _companyCodeList, "CodeCompany", 0);
+			_companyCodeList = GetRows("CodeCompany", 0);
 
 			EditTable2Form editTable2Form = new()
 			{
@@ -259,14 +263,8 @@ namespace CompanyDataBase
 
 		private void txtThirdTask_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back)
-			{
-				return;
-			}
-			else
-			{
+			if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
 				e.Handled = true;
-			}
 		}
 
 		private void ExitToolStripMenuItem_Click(object sender, EventArgs e)

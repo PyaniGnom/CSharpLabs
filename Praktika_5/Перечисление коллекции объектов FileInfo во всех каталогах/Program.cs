@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace Перечисление_коллекции_объектов_FileInfo_во_всех_каталогах
 {
-	internal class Program
+	internal static class Program
 	{
-		static void Main()
+		private static void Main()
 		{
-			DirectoryInfo diTop = new DirectoryInfo(@"D:\");
+			DirectoryInfo diTop = new(@"D:\");
 			try
 			{
 				foreach (var fi in diTop.EnumerateFiles())
@@ -23,9 +19,9 @@ namespace Перечисление_коллекции_объектов_FileInfo_
 							Console.WriteLine($"{fi.FullName}\t\t{fi.Length:N0}");
 						}
 					}
-					catch (UnauthorizedAccessException UnAuthDir)
+					catch (UnauthorizedAccessException unAuthDir)
 					{
-						Console.WriteLine($"{UnAuthDir.Message}");
+						Console.WriteLine($"{unAuthDir.Message}");
 					}
 				}
 
@@ -42,29 +38,29 @@ namespace Перечисление_коллекции_объектов_FileInfo_
 									Console.WriteLine($"{fi.FullName}\t\t{fi.Length:N0}");
 								}
 							}
-							catch (UnauthorizedAccessException UnAuthSubDir)
+							catch (UnauthorizedAccessException unAuthSubDir)
 							{
-								Console.WriteLine($"UnAuthSubDir: {UnAuthSubDir.Message}");
+								Console.WriteLine($"UnAuthSubDir: {unAuthSubDir.Message}");
 							}
 						}
 					}
-					catch (UnauthorizedAccessException UnAuthSubDir)
+					catch (UnauthorizedAccessException unAuthSubDir)
 					{
-						Console.WriteLine($"UnAuthSubDir: {UnAuthSubDir.Message}");
+						Console.WriteLine($"UnAuthSubDir: {unAuthSubDir.Message}");
 					}
 				}
 			}
-			catch (DirectoryNotFoundException DirNotFound)
+			catch (DirectoryNotFoundException dirNotFound)
 			{
-				Console.WriteLine($"{DirNotFound.Message}");
+				Console.WriteLine($"{dirNotFound.Message}");
 			}
-			catch (UnauthorizedAccessException UnAuthDir)
+			catch (UnauthorizedAccessException unAuthDir)
 			{
-				Console.WriteLine($"UnAuthDir: {UnAuthDir.Message}");
+				Console.WriteLine($"UnAuthDir: {unAuthDir.Message}");
 			}
-			catch (PathTooLongException LongPath)
+			catch (PathTooLongException longPath)
 			{
-				Console.WriteLine($"{LongPath.Message}");
+				Console.WriteLine($"{longPath.Message}");
 			}
 		}
 	}

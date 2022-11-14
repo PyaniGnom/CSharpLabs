@@ -4,15 +4,15 @@ using System.Linq;
 
 namespace Перечисление_коллекции_объектов_DirectoryInfo
 {
-	internal class Program
+	internal static class Program
 	{
-		static void Main()
+		private static void Main()
 		{
-			DirectoryInfo dirPrograms = new DirectoryInfo(@"C:\Program Files");
-			DateTime StartOf2022 = new DateTime(2022, 03, 01);
+			DirectoryInfo dirPrograms = new(@"C:\Program Files");
+			DateTime startOf = new(2022, 03, 01);
 
 			var dirs = from dir in dirPrograms.EnumerateDirectories()
-					   where dir.CreationTimeUtc < StartOf2022
+					   where dir.CreationTimeUtc < startOf
 					   select new
 					   {
 						   ProgDir = dir

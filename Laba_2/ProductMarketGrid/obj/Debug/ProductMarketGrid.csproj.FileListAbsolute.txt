@@ -1,0 +1,7 @@
+D:\C_Sharp\Laba_2\ProductMarketGrid\bin\Debug\ProductMarketGrid.exe
+D:\C_Sharp\Laba_2\ProductMarketGrid\bin\Debug\ProductMarketGrid.pdb
+D:\C_Sharp\Laba_2\ProductMarketGrid\obj\Debug\ProductMarketGrid.csproj.AssemblyReference.cache
+D:\C_Sharp\Laba_2\ProductMarketGrid\obj\Debug\ProductMarketGrid.csproj.SuggestedBindingRedirects.cache
+D:\C_Sharp\Laba_2\ProductMarketGrid\obj\Debug\ProductMarketGrid.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Laba_2\ProductMarketGrid\obj\Debug\ProductMarketGrid.exe
+D:\C_Sharp\Laba_2\ProductMarketGrid\obj\Debug\ProductMarketGrid.pdb

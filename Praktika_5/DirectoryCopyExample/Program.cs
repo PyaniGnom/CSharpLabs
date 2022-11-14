@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace DirectoryCopyExample
 {
-	internal class Program
+	internal static class Program
 	{
-		private void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+		private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
 		{
 			DirectoryInfo directory = new(sourceDirName);
 			DirectoryInfo[] directories = directory.GetDirectories();
@@ -27,21 +23,21 @@ namespace DirectoryCopyExample
 			FileInfo[] files = directory.GetFiles();
 			foreach (var file in files)
 			{
-				string temppath = Path.Combine(destDirName, file.Name);
-				file.CopyTo(temppath, false);
+				string tempPath = Path.Combine(destDirName, file.Name);
+				file.CopyTo(tempPath, false);
 			}
-			
+
 			if (copySubDirs)
 			{
-				foreach (var subdir in directories)
+				foreach (var subDir in directories)
 				{
-					string temppath = Path.Combine(destDirName, subdir.Name);
-					DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+					string tempPath = Path.Combine(destDirName, subDir.Name);
+					DirectoryCopy(subDir.FullName, tempPath, true);
 				}
 			}
 		}
 
-		static void Main()
+		private static void Main()
 		{
 			/*
 			Program program = new();

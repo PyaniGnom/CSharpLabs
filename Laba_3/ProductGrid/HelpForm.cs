@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -7,14 +8,14 @@ namespace ProductGrid
 	public partial class HelpForm : Form
 	{
 		[DllImport("user32.dll")]
-		static extern bool HideCaret(IntPtr hWnd);
+		private static extern bool HideCaret(IntPtr hWnd);
 
 		public string NameHelp;
 		public uint CountHelp;
-		public double StorageCostsHelp;
-		public double PreparationCostsHelp;
+		public float StorageCostsHelp;
+		public float PreparationCostsHelp;
 
-		private double _unitCosts;
+		private float _unitCosts;
 		private bool _countIsNull;
 
 		private void UnitCostsCalculation()
@@ -53,10 +54,7 @@ namespace ProductGrid
 
 			textBox1.Text = NameHelp;
 
-			if (_countIsNull)
-				textBox2.Text = "";
-			else
-				textBox2.Text = Convert.ToString(_unitCosts);
+			textBox2.Text = _countIsNull ? "" : Convert.ToString(_unitCosts, CultureInfo.InvariantCulture);
 		}
 	}
 }

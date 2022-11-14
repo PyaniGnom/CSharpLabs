@@ -8,11 +8,13 @@ namespace CompanyDataBase
 	public partial class EditTable1Form : Form
 	{
 		private int _selectedRow;
-		private bool _isEditing = false;
+		private bool _isEditing;
+		private const string ConnectionString =
+			@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\C_Sharp\Laba_4\CompanyDataBase\LR4.accdb;Persist Security Info=True";
 
-		private OleDbConnection _oleDbConnection = null;
-		private OleDbCommandBuilder _oleDbBuilder = null;
-		private OleDbDataAdapter _oleDbDataAdapter = null;
+		private OleDbConnection _oleDbConnection;
+		private OleDbCommandBuilder _oleDbBuilder;
+		private OleDbDataAdapter _oleDbDataAdapter;
 		private readonly DataSet _dataSet = new();
 		private readonly Query _queries = new();
 
@@ -94,12 +96,12 @@ namespace CompanyDataBase
 
 		private void EditTable1Form_Load(object sender, EventArgs e)
 		{
-			_oleDbConnection = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\C_Sharp\Laba_4\CompanyDataBase\LR4.accdb;Persist Security Info=True");
+			_oleDbConnection = new OleDbConnection(ConnectionString);
 
 			_oleDbConnection.Open();
 
 			LoadData();
-			
+
 			DataGridViewColumn column0 = dataGridView.Columns[0];
 			column0.CellTemplate.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
@@ -108,10 +110,10 @@ namespace CompanyDataBase
 
 			DataGridViewColumn column2 = dataGridView.Columns[2];
 			column2.CellTemplate.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
-			
+
 			ReloadData();
 		}
-		
+
 		private void btnUpdate_Click(object sender, EventArgs e)
 		{
 			ReloadData();
@@ -130,39 +132,26 @@ namespace CompanyDataBase
 					switch (IsFieldFilledCorrectly())
 					{
 						case "OK":
-							{
-								_dataSet.Tables[0].Rows.Add();
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][0] = txtCode.Text;
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][1] = txtName.Text;
-								_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][2] = txtAddress.Text;
+							_dataSet.Tables[0].Rows.Add();
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][0] = txtCode.Text;
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][1] = txtName.Text;
+							_dataSet.Tables[0].Rows[_dataSet.Tables[0].Rows.Count - 1][2] = txtAddress.Text;
 
-								ClearField();
+							ClearField();
 
-								_oleDbDataAdapter.Update(_dataSet.Tables[0]);
-
-								break;
-							}
+							_oleDbDataAdapter.Update(_dataSet.Tables[0]);
+							break;
 
 						case "BIG":
-							{
-								MessageBox.Show("Введенное(ые) значение(я) слишком большое(ые)!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							MessageBox.Show("Введенное(ые) значение(я) слишком большое(ые)!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							break;
 
-								break;
-							}
 						case "EMPTY":
-							{
-								MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							break;
 
-								break;
-							}
 						case "ERROR":
-							{
-								MessageBox.Show("Введите корректные значения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-								break;
-							}
-
-						default:
+							MessageBox.Show("Введите корректные значения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 							break;
 					}
 				}
@@ -178,8 +167,8 @@ namespace CompanyDataBase
 		{
 			if (dataGridView.SelectedRows.Count != 0)
 			{
-				if (MessageBox.Show("Вы уверены, что хотите удалить эту строку(ки)?\nВсе связанные записи в таблице изделий тоже удалятся!", "Вы уверены?", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-					== DialogResult.Yes)
+				if (MessageBox.Show("Вы уверены, что хотите удалить эту строку(ки)?\nВсе связанные записи в таблице изделий тоже удалятся!",
+						"Вы уверены?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
 				{
 					foreach (DataGridViewRow rows in dataGridView.SelectedRows)
 						dataGridView.Rows.RemoveAt(rows.Index);
@@ -199,23 +188,25 @@ namespace CompanyDataBase
 
 		private void btnEdit_Click(object sender, EventArgs e)
 		{
-			if (dataGridView.SelectedRows.Count == 0)
+			switch (dataGridView.SelectedRows.Count)
 			{
-				MessageBox.Show("Сначала выберите строку!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
-			else if (dataGridView.SelectedRows.Count > 1)
-			{
-				MessageBox.Show("Выберите только одну строку!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
-			else
-			{
-				_isEditing = true;
-				_selectedRow = dataGridView.SelectedRows[0].Index;
-				dataGridView.ClearSelection();
+				case 0:
+					MessageBox.Show("Сначала выберите строку!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					break;
 
-				txtCode.Text = _dataSet.Tables[0].Rows[_selectedRow][0].ToString();
-				txtName.Text = _dataSet.Tables[0].Rows[_selectedRow][1].ToString();
-				txtAddress.Text = _dataSet.Tables[0].Rows[_selectedRow][2].ToString();
+				case > 1:
+					MessageBox.Show("Выберите только одну строку!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					break;
+
+				default:
+					_isEditing = true;
+					_selectedRow = dataGridView.SelectedRows[0].Index;
+					dataGridView.ClearSelection();
+
+					txtCode.Text = _dataSet.Tables[0].Rows[_selectedRow][0].ToString();
+					txtName.Text = _dataSet.Tables[0].Rows[_selectedRow][1].ToString();
+					txtAddress.Text = _dataSet.Tables[0].Rows[_selectedRow][2].ToString();
+					break;
 			}
 		}
 
@@ -228,46 +219,33 @@ namespace CompanyDataBase
 					switch (IsFieldFilledCorrectly())
 					{
 						case "OK":
+							if (MessageBox.Show("Вы уверены, что хотите сохранить изменения? Изменения коснутся и таблицы изделий", "Вы уверены?",
+								MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
 							{
-								if (MessageBox.Show("Вы уверены, что хотите сохранить изменения? Изменения коснутся и таблицы изделий", "Вы уверены?",
-									MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-								{
-									_dataSet.Tables[0].Rows[_selectedRow][0] = txtCode.Text;
-									_dataSet.Tables[0].Rows[_selectedRow][1] = txtName.Text;
-									_dataSet.Tables[0].Rows[_selectedRow][2] = txtAddress.Text;
+								_dataSet.Tables[0].Rows[_selectedRow][0] = txtCode.Text;
+								_dataSet.Tables[0].Rows[_selectedRow][1] = txtName.Text;
+								_dataSet.Tables[0].Rows[_selectedRow][2] = txtAddress.Text;
 
-									_oleDbDataAdapter.Update(_dataSet.Tables[0]);
+								_oleDbDataAdapter.Update(_dataSet.Tables[0]);
 
-									_isEditing = false;
+								_isEditing = false;
 
-									dataGridView.ClearSelection();
+								dataGridView.ClearSelection();
 
-									ClearField();
-								}
-
-								break;
+								ClearField();
 							}
+							break;
 
 						case "BIG":
-							{
-								MessageBox.Show("Введенное(ые) значение(я) слишком большое(ые)!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							MessageBox.Show("Введенное(ые) значение(я) слишком большое(ые)!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							break;
 
-								break;
-							}
 						case "EMPTY":
-							{
-								MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+							break;
 
-								break;
-							}
 						case "ERROR":
-							{
-								MessageBox.Show("Введите корректные значения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-								break;
-							}
-
-						default:
+							MessageBox.Show("Введите корректные значения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 							break;
 					}
 				}
@@ -290,10 +268,8 @@ namespace CompanyDataBase
 
 		private void txtCode_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (!char.IsDigit(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
-			{
+			if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
 				e.Handled = true;
-			}
 		}
 	}
 }

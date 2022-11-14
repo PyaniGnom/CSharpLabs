@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
+// ReSharper disable StringLiteralTypo
 
 namespace GraphicalPrak
 {
@@ -20,135 +21,141 @@ namespace GraphicalPrak
 			{
 				dataGridView.Rows.Clear();
 
-				using (TextFieldParser parser = new TextFieldParser("Figure.csv"))
+				using TextFieldParser parser = new("Figure.csv");
+				parser.TextFieldType = FieldType.Delimited;
+				parser.SetDelimiters(";");
+				while (!parser.EndOfData)
 				{
-					parser.TextFieldType = FieldType.Delimited;
-					parser.SetDelimiters(";");
-					while (!parser.EndOfData)
-					{
-						string[] fields = parser.ReadFields();
+					string[] fields = parser.ReadFields();
 
-						dataGridView.Rows.Add();
-						for (int i = 0; i < fields.Length; i++)
-						{
-							dataGridView[i, dataGridView.Rows.Count - 1].Value = fields[i];
-						}
+					dataGridView.Rows.Add();
+					if (fields == null)
+					{
+						continue;
+					}
+
+					for (int i = 0; i < fields.Length; i++)
+					{
+						dataGridView[i, dataGridView.Rows.Count - 1].Value = fields[i];
 					}
 				}
 			}
-			catch (Exception Exc)
+			catch (Exception exc)
 			{
-				MessageBox.Show(Exc.Message);
+				MessageBox.Show(exc.Message);
 			}
 		}
 
 		private void DrawImage()
 		{
-			if (dataGridView.SelectedRows.Count == 0)
+			switch (dataGridView.SelectedRows.Count)
 			{
-				MessageBox.Show("Сначала выберите объект в таблице", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
-			else if (dataGridView.SelectedRows.Count > 1)
-			{
-				dataGridView.ClearSelection();
-				MessageBox.Show("Выберите только один объект (запись)", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
-			else
-			{
-				_graphics.Clear(Color.LightBlue);
-				switch (dataGridView.SelectedRows[0].Cells[0].Value)
-				{
-					case "TEXT":
-						{
-							string color = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
-							string message = dataGridView.SelectedRows[0].Cells[2].Value.ToString();
-							string fontFamily = dataGridView.SelectedRows[0].Cells[3].Value.ToString();
-							float messageSize = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[4].Value);
+				case 0:
+					MessageBox.Show("Сначала выберите объект в таблице", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					break;
 
-							float corX = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[5].Value);
-							float corY = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[6].Value);
+				case > 1:
+					dataGridView.ClearSelection();
+					MessageBox.Show("Выберите только один объект (запись)", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					break;
 
+				default:
+					_graphics.Clear(Color.LightBlue);
+					switch (dataGridView.SelectedRows[0].Cells[0].Value)
+					{
+						case "TEXT":
+							{
+								string color = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
+								string message = dataGridView.SelectedRows[0].Cells[2].Value.ToString();
+								string fontFamily = dataGridView.SelectedRows[0].Cells[3].Value.ToString();
+								float messageSize = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[4].Value);
 
-							Font font = new Font(fontFamily, messageSize);
-							SolidBrush brush = new SolidBrush(Color.FromName(color));
+								float corX = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[5].Value);
+								float corY = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[6].Value);
 
-							_graphics.DrawString(message, font, brush, corX, corY);
-							font.Dispose();
-							brush.Dispose();
+								Font font = new(fontFamily, messageSize);
+								SolidBrush brush = new(Color.FromName(color));
 
-							break;
-						}
-					case "CIRCLE/ELLIPSE":
-						{
-							string color = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
+								_graphics.DrawString(message, font, brush, corX, corY);
+								font.Dispose();
+								brush.Dispose();
 
-							float width = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[2].Value);
-							float height = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[3].Value);
+								break;
+							}
 
-							float corX = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[4].Value);
-							float corY = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[5].Value);
+						case "CIRCLE/ELLIPSE":
+							{
+								string color = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
 
-							SolidBrush bursh = new SolidBrush(Color.FromName(color));
+								float width = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[2].Value);
+								float height = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[3].Value);
 
-							_graphics.FillEllipse(bursh, corX, corY, width, height);
-							bursh.Dispose();
+								float corX = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[4].Value);
+								float corY = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[5].Value);
 
-							break;
-						}
-					case "RECTANGLE":
-						{
-							string color = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
+								SolidBrush brush = new(Color.FromName(color));
 
-							float width = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[2].Value);
-							float height = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[3].Value);
+								_graphics.FillEllipse(brush, corX, corY, width, height);
+								brush.Dispose();
 
-							float corX = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[4].Value);
-							float corY = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[5].Value);
+								break;
+							}
 
-							SolidBrush bursh = new SolidBrush(Color.FromName(color));
+						case "RECTANGLE":
+							{
+								string color = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
 
-							_graphics.FillRectangle(bursh, corX, corY, width, height);
-							bursh.Dispose();
+								float width = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[2].Value);
+								float height = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[3].Value);
 
-							break;
-						}
-					case "LINE":
-						{
-							string color = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
-							float width = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[2].Value);
+								float corX = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[4].Value);
+								float corY = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[5].Value);
 
-							float corX1 = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[3].Value);
-							float corY1 = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[4].Value);
-							float corX2 = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[5].Value);
-							float corY2 = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[6].Value);
+								SolidBrush brush = new(Color.FromName(color));
 
-							SolidBrush bursh = new SolidBrush(Color.FromName(color));
-							Pen pen = new Pen(bursh, width);
+								_graphics.FillRectangle(brush, corX, corY, width, height);
+								brush.Dispose();
 
-							_graphics.DrawLine(pen, corX1, corY1, corX2, corY2);
-							bursh.Dispose();
+								break;
+							}
 
-							break;
-						}
-					case "TRIANGLE":
-						{
-							string color = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
+						case "LINE":
+							{
+								string color = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
+								float width = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[2].Value);
 
-							Point[] points = new Point[3];
-							points[0].X = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[2].Value); points[0].Y = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[3].Value);
-							points[1].X = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[4].Value); points[1].Y = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[5].Value);
-							points[2].X = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[6].Value); points[2].Y = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[7].Value);
+								float corX1 = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[3].Value);
+								float corY1 = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[4].Value);
+								float corX2 = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[5].Value);
+								float corY2 = Convert.ToSingle(dataGridView.SelectedRows[0].Cells[6].Value);
 
-							SolidBrush bursh = new SolidBrush(Color.FromName(color));
+								SolidBrush brush = new(Color.FromName(color));
+								Pen pen = new(brush, width);
 
-							_graphics.FillPolygon(bursh, points);
-							bursh.Dispose();
+								_graphics.DrawLine(pen, corX1, corY1, corX2, corY2);
+								brush.Dispose();
 
-							break;
-						}
-					default:
-						break;
-				}
+								break;
+							}
+
+						case "TRIANGLE":
+							{
+								string color = dataGridView.SelectedRows[0].Cells[1].Value.ToString();
+
+								Point[] points = new Point[3];
+								points[0].X = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[2].Value); points[0].Y = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[3].Value);
+								points[1].X = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[4].Value); points[1].Y = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[5].Value);
+								points[2].X = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[6].Value); points[2].Y = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[7].Value);
+
+								SolidBrush brush = new(Color.FromName(color));
+
+								_graphics.FillPolygon(brush, points);
+								brush.Dispose();
+
+								break;
+							}
+					}
+					break;
 			}
 
 			pictureBox.Refresh();
@@ -176,7 +183,7 @@ namespace GraphicalPrak
 
 		private void btnSaveCopy_Click(object sender, EventArgs e)
 		{
-			SaveFileDialog saveFileDialog = new SaveFileDialog();
+			SaveFileDialog saveFileDialog = new();
 			saveFileDialog.Title = "Сохранить копию";
 			saveFileDialog.OverwritePrompt = true;
 			saveFileDialog.CheckPathExists = true;
@@ -191,9 +198,9 @@ namespace GraphicalPrak
 				{
 					pictureBox.Image.Save(saveFileDialog.FileName);
 				}
-				catch (Exception Exc)
+				catch (Exception exc)
 				{
-					MessageBox.Show(Exc.Message);
+					MessageBox.Show(exc.Message);
 				}
 			}
 		}

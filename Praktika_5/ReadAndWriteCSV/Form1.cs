@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
+// ReSharper disable StringLiteralTypo
 
 namespace ReadAndWriteCSV
 {
@@ -20,20 +20,21 @@ namespace ReadAndWriteCSV
 			try
 			{
 				dataGridView.Rows.Clear();
-				using (TextFieldParser parser = new TextFieldParser(cbFiles.Text))
+				using TextFieldParser parser = new(cbFiles.Text);
+				parser.TextFieldType = FieldType.Delimited;
+				parser.SetDelimiters(";");
+				while (!parser.EndOfData)
 				{
-					parser.TextFieldType = FieldType.Delimited;
-					parser.SetDelimiters(";");
-					while (!parser.EndOfData)
+					string[] fields = parser.ReadFields();
+					if (fields != null)
 					{
-						string[] fields = parser.ReadFields();
 						dataGridView.Rows.Add(fields[0], fields[1]);
 					}
 				}
 			}
-			catch (Exception Exc)
+			catch (Exception exc)
 			{
-				MessageBox.Show(Exc.Message);
+				MessageBox.Show(exc.Message);
 			}
 		}
 
@@ -52,9 +53,9 @@ namespace ReadAndWriteCSV
 					cbFiles.Items.Add(Path.GetFileName(f.File));
 				}
 			}
-			catch (Exception Exc)
+			catch (Exception exc)
 			{
-				MessageBox.Show(Exc.Message);
+				MessageBox.Show(exc.Message);
 			}
 		}
 
@@ -68,13 +69,9 @@ namespace ReadAndWriteCSV
 		private void btnRead_Click(object sender, EventArgs e)
 		{
 			if (cbFiles.SelectedIndex != -1)
-			{
 				ReadFile();
-			}
 			else
-			{
 				MessageBox.Show("Сначала выберите файл", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
 		}
 
 		private void btnWrite_Click(object sender, EventArgs e)
@@ -89,12 +86,12 @@ namespace ReadAndWriteCSV
 			}
 			else
 			{
-				StringBuilder stringBuilder = new StringBuilder();
+				StringBuilder stringBuilder = new();
 
 				stringBuilder.AppendLine();
 				stringBuilder.AppendLine($"{txtSurname.Text};{txtName.Text}");
 
-				using (StreamWriter outLine = new StreamWriter(cbFiles.Text, true))
+				using (StreamWriter outLine = new(cbFiles.Text, true))
 				{
 					outLine.Write(stringBuilder.ToString());
 				}

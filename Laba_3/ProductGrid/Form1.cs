@@ -33,7 +33,7 @@ namespace ProductGrid
 
 		private bool TxtFilling()
 		{
-			return txtName.Text == "" || txtProductCount.Text == "" || txtStorageCosts.Text == "" || txtPreparationCosts.Text == "" ? false : true;
+			return txtName.Text != "" && txtProductCount.Text != "" && txtStorageCosts.Text != "" && txtPreparationCosts.Text != "";
 		}
 
 		private void Form1_Load(object sender, EventArgs e)
@@ -82,7 +82,7 @@ namespace ProductGrid
 			else if (dataGridView.SelectedRows.Count != 0)
 			{
 				DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите удалить эту строку(ки)?", "Вы уверены?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-				
+
 				if (dialogResult == DialogResult.Yes)
 				{
 					foreach (DataGridViewRow rows in dataGridView.SelectedRows)
@@ -116,50 +116,52 @@ namespace ProductGrid
 		{
 			lblError.Visible = false;
 
-			if (dataGridView.SelectedRows.Count == 0)
+			switch (dataGridView.SelectedRows.Count)
 			{
-				lblError.Visible = true;
-				lblError.Text = "Сначала выберите строку!";
-			}
-			else if (dataGridView.SelectedRows.Count > 1)
-			{
-				lblError.Visible = true;
-				lblError.Text = "Выберите только одну строку!";
+				case 0:
+					lblError.Visible = true;
+					lblError.Text = "Сначала выберите строку!";
+					break;
 
-				dataGridView.ClearSelection();
-			}
-			else if (dataGridView.SelectedRows.Contains(dataGridView.Rows[dataGridView.RowCount - 1]))
-			{
-				lblError.Visible = true;
-				lblError.Text = "Для этой строки нельзя\nвывести справку!";
+				case > 1:
+					lblError.Visible = true;
+					lblError.Text = "Выберите только одну строку!";
 
-				dataGridView.ClearSelection();
-			}
-			else
-			{
-				HelpForm helpForm = new HelpForm();
+					dataGridView.ClearSelection();
+					break;
 
-				var rows = dataGridView.SelectedRows[0];
+				default:
+					{
+						if (dataGridView.SelectedRows.Contains(dataGridView.Rows[dataGridView.RowCount - 1]))
+						{
+							lblError.Visible = true;
+							lblError.Text = "Для этой строки нельзя\nвывести справку!";
 
-				helpForm.NameHelp = (string)dataGridView[0, rows.Index].Value;
-				helpForm.CountHelp = Convert.ToUInt32(dataGridView[1, rows.Index].Value);
-				helpForm.StorageCostsHelp = Convert.ToDouble(dataGridView[2, rows.Index].Value);
-				helpForm.PreparationCostsHelp = Convert.ToDouble(dataGridView[3, rows.Index].Value);
+							dataGridView.ClearSelection();
+						}
+						else
+						{
+							var row = dataGridView.SelectedRows[0];
+							HelpForm helpForm = new()
+							{
+								NameHelp = (string)dataGridView[0, row.Index].Value,
+								CountHelp = (uint)dataGridView[1, row.Index].Value,
+								StorageCostsHelp = (float)dataGridView[2, row.Index].Value,
+								PreparationCostsHelp = (float)dataGridView[3, row.Index].Value
+							};
 
-				helpForm.ShowDialog();
+							helpForm.ShowDialog();
+						}
+
+						break;
+					}
 			}
 		}
 
 		private void txtProductCount_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back)
-			{
-				return;
-			}
-			else
-			{
+			if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
 				e.Handled = true;
-			}
 		}
 
 		private void txtStorageCosts_KeyPress(object sender, KeyPressEventArgs e)
@@ -168,7 +170,7 @@ namespace ProductGrid
 			{
 				return;
 			}
-			else if ((e.KeyChar == '.' || e.KeyChar == ',') && !txtStorageCosts.Text.Contains('.') && !txtStorageCosts.Text.Contains(','))
+			if ((e.KeyChar == '.' || e.KeyChar == ',') && !txtStorageCosts.Text.Contains('.') && !txtStorageCosts.Text.Contains(','))
 			{
 				if (txtStorageCosts.Text == "")
 				{
@@ -180,7 +182,6 @@ namespace ProductGrid
 				}
 
 				e.KeyChar = ',';
-				return;
 			}
 			else
 			{
@@ -194,7 +195,7 @@ namespace ProductGrid
 			{
 				return;
 			}
-			else if ((e.KeyChar == '.' || e.KeyChar == ',') && !txtPreparationCosts.Text.Contains('.') && !txtPreparationCosts.Text.Contains(','))
+			if ((e.KeyChar == '.' || e.KeyChar == ',') && !txtPreparationCosts.Text.Contains('.') && !txtPreparationCosts.Text.Contains(','))
 			{
 				if (txtPreparationCosts.Text == "")
 				{
@@ -206,7 +207,6 @@ namespace ProductGrid
 				}
 
 				e.KeyChar = ',';
-				return;
 			}
 			else
 			{
@@ -239,22 +239,22 @@ namespace ProductGrid
 			lblError.Visible = false;
 		}
 
-		private void scrllCount_Scroll(object sender, ScrollEventArgs e)
+		private void scrollCount_Scroll(object sender, ScrollEventArgs e)
 		{
 			lblError.Visible = false;
-			txtProductCount.Text = scrllCount.Value.ToString();
+			txtProductCount.Text = scrollCount.Value.ToString();
 		}
 
-		private void scrllStorage_Scroll(object sender, ScrollEventArgs e)
+		private void scrollStorage_Scroll(object sender, ScrollEventArgs e)
 		{
 			lblError.Visible = false;
-			txtStorageCosts.Text = scrllStorage.Value.ToString();
+			txtStorageCosts.Text = scrollStorage.Value.ToString();
 		}
 
-		private void scrllPrep_Scroll(object sender, ScrollEventArgs e)
+		private void scrollPrep_Scroll(object sender, ScrollEventArgs e)
 		{
 			lblError.Visible = false;
-			txtPreparationCosts.Text = scrllPrep.Value.ToString();
+			txtPreparationCosts.Text = scrollPrep.Value.ToString();
 		}
 	}
 }

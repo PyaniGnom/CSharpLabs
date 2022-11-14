@@ -1,8 +1,0 @@
-D:\C_Sharp\Praktika_5\TEST\bin\Debug\TEST.exe.config
-D:\C_Sharp\Praktika_5\TEST\bin\Debug\TEST.exe
-D:\C_Sharp\Praktika_5\TEST\bin\Debug\TEST.pdb
-D:\C_Sharp\Praktika_5\TEST\obj\Debug\TEST.csproj.AssemblyReference.cache
-D:\C_Sharp\Praktika_5\TEST\obj\Debug\TEST.csproj.SuggestedBindingRedirects.cache
-D:\C_Sharp\Praktika_5\TEST\obj\Debug\TEST.csproj.CoreCompileInputs.cache
-D:\C_Sharp\Praktika_5\TEST\obj\Debug\TEST.exe
-D:\C_Sharp\Praktika_5\TEST\obj\Debug\TEST.pdb

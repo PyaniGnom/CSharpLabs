@@ -2,9 +2,11 @@
 using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+// ReSharper disable StringLiteralTypo
 
 namespace ClimateControlSystem
 {
@@ -12,6 +14,9 @@ namespace ClimateControlSystem
 	{
 		private bool _isCooling;
 		private readonly int _coolingTemp = 20;
+
+		private const string ConnectionString =
+			@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\C_Sharp\Laba_5\ClimateControlSystem\DataInformation.accdb;Persist Security Info=True";
 
 		private double _temp1;
 		private double _temp2;
@@ -23,11 +28,11 @@ namespace ClimateControlSystem
 		private readonly double[] _tempArray = new double[5];
 		private readonly double[] _powerArray = new double[5];
 
-		private readonly Random _random = new Random();
+		private readonly Random _random = new();
 		private OleDbConnection _oleDbConnection;
-		private OleDbDataAdapter _oleDbDataAdapter = new OleDbDataAdapter();
+		private OleDbDataAdapter _oleDbDataAdapter = new();
 		private OleDbCommand _oleDbCommand;
-		private readonly DataTable _dataTable = new DataTable();
+		private readonly DataTable _dataTable = new();
 
 		public Form1()
 		{
@@ -55,7 +60,7 @@ namespace ClimateControlSystem
 
 		private void WriteFile(string table, bool append)
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			sb.AppendLine($"{table}");
 			sb.AppendLine("————————————————————————————————————————————————————————————————————————————————————————————————————————————————");
@@ -75,7 +80,7 @@ namespace ClimateControlSystem
 			sb.AppendLine("================================================================================================================");
 			sb.AppendLine();
 
-			using (StreamWriter outfile = new StreamWriter("DataInformation.txt", append))
+			using (StreamWriter outfile = new("DataInformation.txt", append))
 			{
 				outfile.Write(sb.ToString());
 			}
@@ -83,13 +88,13 @@ namespace ClimateControlSystem
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			this.ActiveControl = btnCooling;
+			ActiveControl = btnCooling;
 
 			btnCooling.BackColor = Color.Red;
 
-			lblRoomStatus1.Text = "Все в норме";
-			lblRoomStatus2.Text = "Все в норме";
-			lblRoomStatus3.Text = "Все в норме";
+			lblRoomStatus1.Text = "Всё в норме";
+			lblRoomStatus2.Text = "Всё в норме";
+			lblRoomStatus3.Text = "Всё в норме";
 			txtCoolingTemp1.Text = _coolingTemp.ToString();
 			txtCoolingTemp2.Text = _coolingTemp.ToString();
 			txtCoolingTemp3.Text = _coolingTemp.ToString();
@@ -115,86 +120,92 @@ namespace ClimateControlSystem
 			value = _random.Next(25, 50);
 			txtTemp3.Text = value.ToString();
 
-			_oleDbConnection = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\C_Sharp\Laba_5\ClimateControlSystem\DataInformation.accdb;Persist Security Info=True");
+			_oleDbConnection = new OleDbConnection(ConnectionString);
 			_oleDbConnection.Open();
 		}
 
 		private void timerRandTemp_Tick(object sender, EventArgs e)
 		{
-			//Значения температуры в Помещение 1
+			// Room 1 temperature values.
 
 			double value = _random.Next(100);
 			value /= 100;
 
 			_temp1 = double.Parse(txtTemp1.Text) + value;
-			txtTemp1.Text = _temp1.ToString();
+			txtTemp1.Text = _temp1.ToString(CultureInfo.InvariantCulture);
 
 			int action = _random.Next(2);
 
-			if (action == 0 && double.Parse(txtInletTemp1.Text) <= 25)
+			switch (action)
 			{
-				_inletTemp1 = double.Parse(txtInletTemp1.Text) + value;
-				txtInletTemp1.Text = _inletTemp1.ToString();
-			}
-			else if (action == 1 && double.Parse(txtInletTemp1.Text) >= 15)
-			{
-				_inletTemp1 = double.Parse(txtInletTemp1.Text) - value;
-				txtInletTemp1.Text = _inletTemp1.ToString();
+				case 0 when double.Parse(txtInletTemp1.Text) <= 25:
+					_inletTemp1 = double.Parse(txtInletTemp1.Text) + value;
+					txtInletTemp1.Text = _inletTemp1.ToString(CultureInfo.InvariantCulture);
+					break;
+
+				case 1 when double.Parse(txtInletTemp1.Text) >= 15:
+					_inletTemp1 = double.Parse(txtInletTemp1.Text) - value;
+					txtInletTemp1.Text = _inletTemp1.ToString(CultureInfo.InvariantCulture);
+					break;
 			}
 
 			_oleDbCommand = new OleDbCommand($"INSERT INTO Помещение1 (Дата, Температура_входного_воздуха, Температура_охлаждающего_потока, Температура, Поток_охлаждающего_воздуха) VALUES ('{DateTime.Now}', '{double.Parse(txtInletTemp1.Text)}', '{_coolingTemp}', '{double.Parse(txtTemp1.Text)}', '{double.Parse(txtCoolingFlow1.Text)}')", _oleDbConnection);
 			_oleDbCommand.ExecuteNonQuery();
 
 
-			//Значения температуры в Помещение 2
+			// Room 2 temperature values.
 
 			value = _random.Next(100);
 			value /= 100;
 
 			_temp2 = double.Parse(txtTemp2.Text) + value;
-			txtTemp2.Text = _temp2.ToString();
+			txtTemp2.Text = _temp2.ToString(CultureInfo.InvariantCulture);
 
 			action = _random.Next(2);
-			if (action == 0 && double.Parse(txtInletTemp2.Text) <= 25)
+			switch (action)
 			{
-				_inletTemp2 = double.Parse(txtInletTemp2.Text) + value;
-				txtInletTemp2.Text = _inletTemp2.ToString();
-			}
-			else if (action == 1 && double.Parse(txtInletTemp2.Text) >= 15)
-			{
-				_inletTemp2 = double.Parse(txtInletTemp2.Text) - value;
-				txtInletTemp2.Text = _inletTemp2.ToString();
+				case 0 when double.Parse(txtInletTemp2.Text) <= 25:
+					_inletTemp2 = double.Parse(txtInletTemp2.Text) + value;
+					txtInletTemp2.Text = _inletTemp2.ToString(CultureInfo.InvariantCulture);
+					break;
+
+				case 1 when double.Parse(txtInletTemp2.Text) >= 15:
+					_inletTemp2 = double.Parse(txtInletTemp2.Text) - value;
+					txtInletTemp2.Text = _inletTemp2.ToString(CultureInfo.InvariantCulture);
+					break;
 			}
 
 			_oleDbCommand = new OleDbCommand($"INSERT INTO Помещение2 (Дата, Температура_входного_воздуха, Температура_охлаждающего_потока, Температура, Поток_охлаждающего_воздуха) VALUES ('{DateTime.Now}', '{double.Parse(txtInletTemp2.Text)}', '{_coolingTemp}', '{double.Parse(txtTemp2.Text)}', '{double.Parse(txtCoolingFlow2.Text)}')", _oleDbConnection);
 			_oleDbCommand.ExecuteNonQuery();
 
 
-			//Значения температуры в Помещение 3
+			// Room 3 temperature values.
 
 			value = _random.Next(100);
 			value /= 100;
 
 			_temp3 = double.Parse(txtTemp3.Text) + value;
-			txtTemp3.Text = _temp3.ToString();
+			txtTemp3.Text = _temp3.ToString(CultureInfo.InvariantCulture);
 
 			action = _random.Next(2);
-			if (action == 0 && double.Parse(txtInletTemp3.Text) <= 25)
+			switch (action)
 			{
-				_inletTemp3 = double.Parse(txtInletTemp3.Text) + value;
-				txtInletTemp3.Text = _inletTemp3.ToString();
-			}
-			else if (action == 1 && double.Parse(txtInletTemp3.Text) >= 15)
-			{
-				_inletTemp3 = double.Parse(txtInletTemp3.Text) - value;
-				txtInletTemp3.Text = _inletTemp3.ToString();
+				case 0 when double.Parse(txtInletTemp3.Text) <= 25:
+					_inletTemp3 = double.Parse(txtInletTemp3.Text) + value;
+					txtInletTemp3.Text = _inletTemp3.ToString(CultureInfo.InvariantCulture);
+					break;
+
+				case 1 when double.Parse(txtInletTemp3.Text) >= 15:
+					_inletTemp3 = double.Parse(txtInletTemp3.Text) - value;
+					txtInletTemp3.Text = _inletTemp3.ToString(CultureInfo.InvariantCulture);
+					break;
 			}
 
 			_oleDbCommand = new OleDbCommand($"INSERT INTO Помещение3 (Дата, Температура_входного_воздуха, Температура_охлаждающего_потока, Температура, Поток_охлаждающего_воздуха) VALUES ('{DateTime.Now}', '{double.Parse(txtInletTemp3.Text)}', '{_coolingTemp}', '{double.Parse(txtTemp3.Text)}', '{double.Parse(txtCoolingFlow3.Text)}')", _oleDbConnection);
 			_oleDbCommand.ExecuteNonQuery();
 
 
-			//Построение графика
+			// Plotting chart.
 
 			for (int i = 0; i < _tempArray.Length - 1; i++)
 			{
@@ -220,75 +231,78 @@ namespace ClimateControlSystem
 
 		private void timerCalcData_Tick(object sender, EventArgs e)
 		{
-			//Расчет значений для Помещения 1
+			// Calculation of values for Room 1.
 
 			double qIn = 120 * _temp1;
 			double qCool = _inletTemp1;
 			txtCoolingFlow1.Text = "0";
 
-			if (_temp1 > 40 && _isCooling)
+			switch (_temp1)
 			{
-				qCool = _coolingTemp * 6;
-				txtCoolingFlow1.Text = "5";
-			}
-			else if (_temp1 > 35 && _isCooling)
-			{
-				qCool = _coolingTemp * 4;
-				txtCoolingFlow1.Text = "3";
-			}
-			else if (_temp1 > 30 && _isCooling)
-			{
-				qCool = _coolingTemp * 3;
-				txtCoolingFlow1.Text = "2";
-			}
-			else if (_temp1 > 25 && _isCooling)
-			{
-				qCool = _coolingTemp * 2;
-				txtCoolingFlow1.Text = "1";
+				case > 40 when _isCooling:
+					qCool = _coolingTemp * 6;
+					txtCoolingFlow1.Text = "5";
+					break;
+
+				case > 35 when _isCooling:
+					qCool = _coolingTemp * 4;
+					txtCoolingFlow1.Text = "3";
+					break;
+
+				case > 30 when _isCooling:
+					qCool = _coolingTemp * 3;
+					txtCoolingFlow1.Text = "2";
+					break;
+
+				case > 25 when _isCooling:
+					qCool = _coolingTemp * 2;
+					txtCoolingFlow1.Text = "1";
+					break;
 			}
 
 			double qResult = qIn - qCool;
-			txtTemp1.Text = (double.Parse(txtTemp1.Text) * (qResult / qIn)).ToString();
+			txtTemp1.Text = (double.Parse(txtTemp1.Text) * (qResult / qIn)).ToString(CultureInfo.InvariantCulture);
 
 			qResult = double.Parse(txtTemp1.Text) * 120 - qCool;
-			txtTemp1.Text = Math.Round((double.Parse(txtTemp1.Text) * (qResult / qIn)), 2, MidpointRounding.AwayFromZero).ToString();
+			txtTemp1.Text = Math.Round((double.Parse(txtTemp1.Text) * (qResult / qIn)), 2, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture);
 
-
-			//Расчет значений для Помещения 2
+			// Calculation of values for Room 1.
 
 			qIn = 120 * _temp2;
 			qCool = _inletTemp2;
 			txtCoolingFlow2.Text = "0";
 
-			if (_temp2 > 40 && _isCooling)
+			switch (_temp2)
 			{
-				qCool = _coolingTemp * 6;
-				txtCoolingFlow2.Text = "5";
-			}
-			else if (_temp2 > 35 && _isCooling)
-			{
-				qCool = _coolingTemp * 4;
-				txtCoolingFlow2.Text = "3";
-			}
-			else if (_temp2 > 30 && _isCooling)
-			{
-				qCool = _coolingTemp * 3;
-				txtCoolingFlow2.Text = "2";
-			}
-			else if (_temp2 > 25 && _isCooling)
-			{
-				qCool = _coolingTemp * 2;
-				txtCoolingFlow2.Text = "1";
+				case > 40 when _isCooling:
+					qCool = _coolingTemp * 6;
+					txtCoolingFlow2.Text = "5";
+					break;
+
+				case > 35 when _isCooling:
+					qCool = _coolingTemp * 4;
+					txtCoolingFlow2.Text = "3";
+					break;
+
+				case > 30 when _isCooling:
+					qCool = _coolingTemp * 3;
+					txtCoolingFlow2.Text = "2";
+					break;
+
+				case > 25 when _isCooling:
+					qCool = _coolingTemp * 2;
+					txtCoolingFlow2.Text = "1";
+					break;
 			}
 
 			qResult = qIn - qCool;
-			txtTemp2.Text = (double.Parse(txtTemp2.Text) * (qResult / qIn)).ToString();
+			txtTemp2.Text = (double.Parse(txtTemp2.Text) * (qResult / qIn)).ToString(CultureInfo.InvariantCulture);
 
 			qResult = double.Parse(txtTemp2.Text) * 120 - qCool;
-			txtTemp2.Text = Math.Round((double.Parse(txtTemp2.Text) * (qResult / qIn)), 2, MidpointRounding.AwayFromZero).ToString();
+			txtTemp2.Text = Math.Round((double.Parse(txtTemp2.Text) * (qResult / qIn)), 2, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture);
 
 
-			//Расчет значений для Помещения 3
+			// Calculation of values for Room 3.
 
 			qIn = 120 * _temp3;
 			qCool = _inletTemp3;
@@ -316,108 +330,111 @@ namespace ClimateControlSystem
 			}
 
 			qResult = qIn - qCool;
-			txtTemp3.Text = (double.Parse(txtTemp3.Text) * (qResult / qIn)).ToString();
+			txtTemp3.Text = (double.Parse(txtTemp3.Text) * (qResult / qIn)).ToString(CultureInfo.InvariantCulture);
 
 			qResult = double.Parse(txtTemp3.Text) * 120 - qCool;
-			txtTemp3.Text = Math.Round((double.Parse(txtTemp3.Text) * (qResult / qIn)), 2, MidpointRounding.AwayFromZero).ToString();
+			txtTemp3.Text = Math.Round((double.Parse(txtTemp3.Text) * (qResult / qIn)), 2, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture);
 		}
 
 		private void txtTemp1_TextChanged(object sender, EventArgs e)
 		{
-			if (double.Parse(txtTemp1.Text) > 50)
+			switch (double.Parse(txtTemp1.Text))
 			{
-				_isCooling = true;
+				case > 50:
+					_isCooling = true;
 
-				btnCooling.BackColor = Color.Green;
-				txtTemp1.BackColor = Color.Red;
-				lblRoomStatus1.Text = "В первом помещении слишком высокая темпераура!\nОхлаждение включено";
-			}
-			else if (double.Parse(txtTemp1.Text) > 40)
-			{
-				txtTemp1.BackColor = Color.Red;
-				lblRoomStatus1.Text = "В первом помещении высокая темпераура!\nОбратите внимание!";
-			}
-			else if (double.Parse(txtTemp1.Text) < 25)
-			{
-				_isCooling = false;
+					btnCooling.BackColor = Color.Green;
+					txtTemp1.BackColor = Color.Red;
+					lblRoomStatus1.Text = "В первом помещении слишком высокая темпераура!\nОхлаждение включено";
+					break;
 
-				btnCooling.BackColor = Color.Red;
-				txtTemp1.BackColor = Color.DeepSkyBlue;
-				lblRoomStatus1.Text = "В первом помещении низкая температура!\nОхлаждение отключено";
-			}
-			else
-			{
-				txtTemp1.BackColor = Color.Green;
-				lblRoomStatus1.Text = "Все в норме";
+				case > 40:
+					txtTemp1.BackColor = Color.Red;
+					lblRoomStatus1.Text = "В первом помещении высокая темпераура!\nОбратите внимание!";
+					break;
+
+				case < 25:
+					_isCooling = false;
+
+					btnCooling.BackColor = Color.Red;
+					txtTemp1.BackColor = Color.DeepSkyBlue;
+					lblRoomStatus1.Text = "В первом помещении низкая температура!\nОхлаждение отключено";
+					break;
+
+				default:
+					txtTemp1.BackColor = Color.Green;
+					lblRoomStatus1.Text = "Всё в норме";
+					break;
 			}
 		}
 
 		private void txtTemp2_TextChanged(object sender, EventArgs e)
 		{
-			if (double.Parse(txtTemp2.Text) > 50)
+			switch (double.Parse(txtTemp2.Text))
 			{
-				_isCooling = true;
+				case > 50:
+					_isCooling = true;
 
-				btnCooling.BackColor = Color.Green;
-				txtTemp2.BackColor = Color.Red;
-				lblRoomStatus2.Text = "Во втором помещении слишком высокая темпераура!\nОхлаждение включено";
-			}
-			else if (double.Parse(txtTemp2.Text) > 40)
-			{
-				txtTemp2.BackColor = Color.Red;
-				lblRoomStatus2.Text = "Во втором помещении высокая темпераура!\nОбратите внимание!";
-			}
-			else if (double.Parse(txtTemp2.Text) < 25)
-			{
-				_isCooling = false;
+					btnCooling.BackColor = Color.Green;
+					txtTemp2.BackColor = Color.Red;
+					lblRoomStatus2.Text = "Во втором помещении слишком высокая темпераура!\nОхлаждение включено";
+					break;
 
-				btnCooling.BackColor = Color.Red;
-				txtTemp2.BackColor = Color.DeepSkyBlue;
-				lblRoomStatus2.Text = "Во втором помещении низкая температура!\nОхлаждение отключено";
-			}
-			else
-			{
-				txtTemp2.BackColor = Color.Green;
-				lblRoomStatus2.Text = "Все в норме";
+				case > 40:
+					txtTemp2.BackColor = Color.Red;
+					lblRoomStatus2.Text = "Во втором помещении высокая темпераура!\nОбратите внимание!";
+					break;
+
+				case < 25:
+					_isCooling = false;
+
+					btnCooling.BackColor = Color.Red;
+					txtTemp2.BackColor = Color.DeepSkyBlue;
+					lblRoomStatus2.Text = "Во втором помещении низкая температура!\nОхлаждение отключено";
+					break;
+
+				default:
+					txtTemp2.BackColor = Color.Green;
+					lblRoomStatus2.Text = "Всё в норме";
+					break;
 			}
 		}
 
 		private void txtTemp3_TextChanged(object sender, EventArgs e)
 		{
-			if (double.Parse(txtTemp3.Text) > 50)
+			switch (double.Parse(txtTemp3.Text))
 			{
-				_isCooling = true;
+				case > 50:
+					_isCooling = true;
 
-				btnCooling.BackColor = Color.Green;
-				txtTemp3.BackColor = Color.Red;
-				lblRoomStatus3.Text = "В третьем помещении слишком высокая темпераура!\nОхлаждение включено";
-			}
-			else if (double.Parse(txtTemp3.Text) > 40)
-			{
-				txtTemp3.BackColor = Color.Red;
-				lblRoomStatus3.Text = "В третьем помещении высокая темпераура!\nОбратите внимание!";
-			}
-			else if (double.Parse(txtTemp3.Text) < 25)
-			{
-				_isCooling = false;
+					btnCooling.BackColor = Color.Green;
+					txtTemp3.BackColor = Color.Red;
+					lblRoomStatus3.Text = "В третьем помещении слишком высокая темпераура!\nОхлаждение включено";
+					break;
 
-				btnCooling.BackColor = Color.Red;
-				txtTemp3.BackColor = Color.DeepSkyBlue;
-				lblRoomStatus3.Text = "В третьем помещении низкая температура!\nОхлаждение отключено";
-			}
-			else
-			{
-				txtTemp3.BackColor = Color.Green;
-				lblRoomStatus3.Text = "Все в норме";
+				case > 40:
+					txtTemp3.BackColor = Color.Red;
+					lblRoomStatus3.Text = "В третьем помещении высокая темпераура!\nОбратите внимание!";
+					break;
+
+				case < 25:
+					_isCooling = false;
+
+					btnCooling.BackColor = Color.Red;
+					txtTemp3.BackColor = Color.DeepSkyBlue;
+					lblRoomStatus3.Text = "В третьем помещении низкая температура!\nОхлаждение отключено";
+					break;
+
+				default:
+					txtTemp3.BackColor = Color.Green;
+					lblRoomStatus3.Text = "Всё в норме";
+					break;
 			}
 		}
 
 		private void btnCooling_BackColorChanged(object sender, EventArgs e)
 		{
-			if (_isCooling)
-				btnCooling.Text = "Выключить вентиляцию";
-			else
-				btnCooling.Text = "Включить вентиляцию";
+			btnCooling.Text = _isCooling ? "Выключить вентиляцию" : "Включить вентиляцию";
 		}
 
 		private void btnCooling_Click(object sender, EventArgs e)

@@ -2,67 +2,61 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Input;
-using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
 
 namespace PingPong
 {
 	public partial class MainForm : Form
 	{
-		private const float _pi = (float)Math.PI;
-		private const float _2pi = _pi * 2;
+		private const float Pi = (float)Math.PI;
+		private const float _2pi = Pi * 2;
 
 		private Board _board;
-		private static Ball _nullBall = new NullBall();
-		private static CellPoint _voidPoint = new VoidPoint();
-		private static CellPoint _wallPoint = new WallPoint();
-		private static GatePoint _gate1;
-		private static GatePoint _gate2;
-		private static Random _random = new Random();
+		private static readonly Ball s_nullBall = new NullBall();
+		private static readonly CellPoint s_voidPoint = new VoidPoint();
+		private static readonly CellPoint s_wallPoint = new WallPoint();
+		private static readonly Random s_random = new();
 
 		private class Vector
 		{
-			private float _x;
-			private float _y;
-
 			public Vector(float x, float y)
 			{
-				_x = x;
-				_y = y;
+				X = x;
+				Y = y;
 			}
 
 			public static Vector operator +(Vector a, Vector b)
 			{
-				return new Vector(a._x + b._x, a._y + b._y);
+				return new Vector(a.X + b.X, a.Y + b.Y);
 			}
 
 			public static Vector operator -(Vector a, Vector b)
 			{
-				return new Vector(a._x - b._x, a._y - b._y);
+				return new Vector(a.X - b.X, a.Y - b.Y);
 			}
 
 			public static float operator *(Vector a, Vector b)
 			{
-				return a._x * b._x + a._y * b._y;
+				return a.X * b.X + a.Y * b.Y;
 			}
 
 			public static Vector operator *(Vector a, float b)
 			{
-				return new Vector(a._x * b, a._y * b);
+				return new Vector(a.X * b, a.Y * b);
 			}
 
 			public static Vector operator *(float b, Vector a)
 			{
-				return new Vector(a._x * b, a._y * b);
+				return new Vector(a.X * b, a.Y * b);
 			}
 
 			public static Vector operator /(Vector a, float b)
 			{
-				return new Vector(a._x / b, a._y / b);
+				return new Vector(a.X / b, a.Y / b);
 			}
 
-			public float X => _x;
-			public float Y => _y;
+			public float X { get; }
+			public float Y { get; }
 		}
 
 		private abstract class Ball
@@ -73,7 +67,7 @@ namespace PingPong
 			public abstract void Draw(Graphics graphics);
 			public abstract void Move();
 			public abstract void Move(CellPoint[,] cellPoints, PictureBox picture, Board board);
-			public abstract void Reflection(float phi, float xx, float yy);
+			public abstract void Reflection(float xx, float yy);
 			public abstract void TouchPoint(CellPoint[,] cellPoints, Board board, float phi);
 			public abstract void Stop(Platform platform, int idPlayer);
 			public abstract float Angle { get; set; }
@@ -85,14 +79,18 @@ namespace PingPong
 
 		private class RealBall : Ball
 		{
-			private float _radius, _diametr;
+			private float _radius;
+			private float _diameter;
 			private float _velocity;
-			private float _x, _y;
-			private float _directionX, _directionY, _alpha;
-			private float _deltaPhi = (float)Math.PI / 20;
+			private float _x;
+			private float _y;
+			private float _directionX;
+			private float _directionY;
+			private float _alpha;
+			private const float DeltaPhi = (float)Math.PI / 20;
 
 			private Vector _vector;
-			private Timer _timer;
+			private readonly Timer _timer;
 
 			public RealBall(EventHandler tick, float radius, float velocity, float x, float y, float alpha)
 			{
@@ -110,7 +108,7 @@ namespace PingPong
 
 				_vector = new Vector(_directionX, _directionY);
 
-				_diametr = 2 * radius;
+				_diameter = 2 * radius;
 			}
 
 			public override void BeginMove()
@@ -135,34 +133,32 @@ namespace PingPong
 
 			public override void Draw(Graphics graphics)
 			{
-				graphics.FillEllipse(Brushes.White, _x - _radius, _y - _radius, _diametr, _diametr);
+				graphics.FillEllipse(Brushes.White, _x - _radius, _y - _radius, _diameter, _diameter);
 			}
 
 			public override void Move()
 			{
-				_x += (_directionX / 10);
-				_y += (_directionY / 10);
+				_x += _directionX / 10;
+				_y += _directionY / 10;
 			}
 
 			public override void Move(CellPoint[,] cellPoints, PictureBox picture, Board board)
 			{
 				for (int i = 0; i < 10 * _velocity; i++)
-				{
 					TouchPoint(cellPoints, board, 0);
-				}
 
 				picture.Invalidate();
 			}
 
-			public override void Reflection(float phi, float xx, float yy)
+			public override void Reflection(float xx, float yy)
 			{
-				Vector OH = new Vector(xx - _x, yy - _y);
+				Vector oh = new(xx - _x, yy - _y);
 
-				if (OH * _vector >= 0)
+				if (oh * _vector >= 0)
 				{
-					float lambda = - (_vector * OH) / (OH * OH);
-					Vector h = _vector + lambda * OH;
-					_vector = h + lambda * OH;
+					float lambda = - (_vector * oh) / (oh * oh);
+					Vector h = _vector + lambda * oh;
+					_vector = h + lambda * oh;
 					_directionX = _vector.X;
 					_directionY = _vector.Y;
 				}
@@ -173,7 +169,7 @@ namespace PingPong
 				float xx = _radius * (float)Math.Cos(phi) + _x;
 				float yy = _radius * (float)Math.Sin(phi) + _y;
 
-				cellPoints[(int)xx, (int)yy].Touch(this, cellPoints, board, xx, yy, phi, _deltaPhi);
+				cellPoints[(int)xx, (int)yy].Touch(this, cellPoints, board, xx, yy, phi, DeltaPhi);
 			}
 
 			public override void Stop(Platform platform, int idPlayer)
@@ -189,7 +185,7 @@ namespace PingPong
 			public override float Angle { get => _alpha; set { _alpha = value; } }
 			public override float X { get => _x; set { _x = value; } }
 			public override float Y { get => _y; set { _y = value; } }
-			public override float Radius { get => _radius; set { _radius = value; _diametr = 2 * _radius; } }
+			public override float Radius { get => _radius; set { _radius = value; _diameter = 2 * _radius; } }
 			public override float Velocity { get => _velocity; set { _velocity = value; } }
 		}
 
@@ -201,7 +197,7 @@ namespace PingPong
 			public override void Draw(Graphics graphics) { }
 			public override void Move() { }
 			public override void Move(CellPoint[,] cellPoints, PictureBox picture, Board board) { }
-			public override void Reflection(float phi, float xx, float yy) { }
+			public override void Reflection(float xx, float yy) { }
 			public override void TouchPoint(CellPoint[,] cellPoints, Board board, float phi) { }
 			public override void Stop(Platform platform, int idPlayer) { }
 			public override float Angle { get => 0; set { } }
@@ -213,25 +209,25 @@ namespace PingPong
 
 		private abstract class CellPoint
 		{
-			public abstract void Touch(Ball ball, CellPoint[,] cellPoints, Board board, float xx, float yy, float phi, float deltaphi);
+			public abstract void Touch(Ball ball, CellPoint[,] cellPoints, Board board, float xx, float yy, float phi, float deltaPhi);
 		}
 
 		private class VoidPoint : CellPoint
 		{
-			delegate void Del(Ball ball, CellPoint[,] cellPoints, Board board, float phi, float deltaphi);
-			Del[] _delArray = new Del[] { Move, NextPoint };
+			private delegate void Del(Ball ball, CellPoint[,] cellPoints, Board board, float phi, float deltaPhi);
+			private readonly Del[] _delArray = { Move, NextPoint };
 
-			public override void Touch(Ball ball, CellPoint[,] cellPoints, Board board, float xx, float yy, float phi, float deltaphi)
+			public override void Touch(Ball ball, CellPoint[,] cellPoints, Board board, float xx, float yy, float phi, float deltaPhi)
 			{
-				_delArray[(phi <= _2pi).GetHashCode()](ball, cellPoints, board, phi, deltaphi);
+				_delArray[(phi <= _2pi).GetHashCode()](ball, cellPoints, board, phi, deltaPhi);
 			}
 
-			private static void NextPoint(Ball ball, CellPoint[,] cellPoints, Board board, float phi, float deltaphi)
+			private static void NextPoint(Ball ball, CellPoint[,] cellPoints, Board board, float phi, float deltaPhi)
 			{
-				ball.TouchPoint(cellPoints, board, phi + deltaphi);
+				ball.TouchPoint(cellPoints, board, phi + deltaPhi);
 			}
 
-			private static void Move(Ball ball, CellPoint[,] cellPoints, Board board, float phi, float deltaphi)
+			private static void Move(Ball ball, CellPoint[,] cellPoints, Board board, float phi, float deltaPhi)
 			{
 				ball.Move();
 			}
@@ -239,12 +235,12 @@ namespace PingPong
 
 		private class WallPoint : CellPoint
 		{
-			delegate void Del(Ball ball, float phi, float xx, float yy);
-			Del[] _delArray = new Del[] { Stop, Reflection };
+			private delegate void Del(Ball ball, float phi, float xx, float yy);
+			private Del[] _delArray = { Stop, Reflection };
 
-			public override void Touch(Ball ball, CellPoint[,] cellPoints, Board board, float xx, float yy, float phi, float deltaphi)
+			public override void Touch(Ball ball, CellPoint[,] cellPoints, Board board, float xx, float yy, float phi, float deltaPhi)
 			{
-				ball.Reflection(phi, xx, yy);
+				ball.Reflection(xx, yy);
 				ball.Move();
 			}
 
@@ -252,105 +248,98 @@ namespace PingPong
 
 			private static void Reflection(Ball ball, float phi, float xx, float yy)
 			{
-				ball.Reflection(phi, xx, yy);
+				ball.Reflection(xx, yy);
 				ball.Move();
 			}
 		}
 
 		private class GatePoint : CellPoint
 		{
-			private Player _player;
+			private readonly Player _player;
 
 			public GatePoint(Player player)
 			{
 				_player = player;
 			}
 
-			public override void Touch(Ball ball, CellPoint[,] cellPoints, Board board, float xx, float yy, float phi, float deltaphi)
+			public override void Touch(Ball ball, CellPoint[,] cellPoints, Board board, float xx, float yy, float phi, float deltaPhi)
 			{
 				_player.Score++;
 
-				ball.Stop(_player.Platform, _player.ID);
+				ball.Stop(_player.Platform, _player.Id);
 				board.ShowScore();
 			}
 		}
 
 		private class Platform
 		{
-			private float _width;
-			private float _height;
-			private float _x;
-			private float _y;
-			private float _destination;
-
-			private Timer _timer;
-			private Ball _currentBall;
+			private readonly Timer _timer;
 
 			public Platform(CellPoint[,] cellPoints, EventHandler tick, float width, float height, float x, float y)
 			{
-				_x = x;
-				_y = y;
-				_width = width;
-				_height = height;
+				X = x;
+				Y = y;
+				Width = width;
+				Height = height;
 
 				_timer = new Timer();
 				_timer.Tick += tick;
 
 				FillPoints(cellPoints);
-				_currentBall = _nullBall;
+				CurrentBall = s_nullBall;
 			}
 
 			private void FillPoints(CellPoint[,] cellPoints)
 			{
-				for (int i = 0, xx = (int)(_x - _width / 2); i < _width; i++, xx++)
+				for (int i = 0, xx = (int)(X - Width / 2); i < Width; i++, xx++)
 				{
-					for (int j = 0, yy = (int)(_y - _height / 2); j < _height; j++, yy++)
+					for (int j = 0, yy = (int)(Y - Height / 2); j < Height; j++, yy++)
 					{
-						cellPoints[xx, yy] = _wallPoint;
+						cellPoints[xx, yy] = s_wallPoint;
 					}
 				}
 			}
 
 			private void ClearPoints(CellPoint[,] cellPoints)
 			{
-				for (int i = 0, xx = (int)(_x - _width / 2); i < _width; i++, xx++)
+				for (int i = 0, xx = (int)(X - Width / 2); i < Width; i++, xx++)
 				{
-					for (int j = 0, yy = (int)(_y - _height / 2); j < _height; j++, yy++)
+					for (int j = 0, yy = (int)(Y - Height / 2); j < Height; j++, yy++)
 					{
-						cellPoints[xx, yy] = _voidPoint;
+						cellPoints[xx, yy] = s_voidPoint;
 					}
 				}
 			}
 
 			public void Draw(Graphics graphics)
 			{
-				graphics.FillRectangle(Brushes.White, _x - _width / 2, _y - _height / 2, _width, _height);
+				graphics.FillRectangle(Brushes.White, X - Width / 2, Y - Height / 2, Width, Height);
 			}
 
-			public void Move(CellPoint[,] cellPoints, float H)
+			public void Move(CellPoint[,] cellPoints, float h)
 			{
 				ClearPoints(cellPoints);
 
 				for (int i = 0; i < 10; i++)
 				{
-					if (_y > _height / 2 + 1 + 10 && _destination < _y || _y < H - _height / 2 - 2 - 10 && _destination > _y)
+					if (Y > Height / 2 + 1 + 10 && Destination < Y || Y < h - Height / 2 - 2 - 10 && Destination > Y)
 					{
-						_y += Math.Sign(_destination - _y);
+						Y += Math.Sign(Destination - Y);
 					}
 				}
 
-				_currentBall.Y = _y;
+				CurrentBall.Y = Y;
 
 				FillPoints(cellPoints);
 			}
 
-			public void StartMove(float H)
+			public void StartMove(float h)
 			{
-				_y = H / 2;
+				Y = h / 2;
 				_timer.Enabled = true;
 				_timer.Interval = 1;
-				_destination = _y;
-				_currentBall = _nullBall;
+				Destination = Y;
+				CurrentBall = s_nullBall;
 			}
 
 			public void StopMove()
@@ -358,80 +347,75 @@ namespace PingPong
 				_timer.Enabled = false;
 			}
 
-			public float X => _x;
-			public float Y => _y;
-			public float Width => _width;
-			public float Height { get => _height; set { _height = value; } }
-			public float Destination { get => _destination; set { _destination = value; } }
-			public Ball CurrentBall { get => _currentBall; set { _currentBall = value; } }
+			public float X { get; }
+			public float Y { get; private set; }
+			public float Width { get; }
+			public float Height { get; set; }
+			public float Destination { get; set; }
+			public Ball CurrentBall { get; set; }
 		}
 
 		private class Player
 		{
-			private int _score = 0;
-			private int _id;
-			private Platform _platform;
-
 			public Player(Platform platform, int id)
 			{
-				_id = id;
-				_platform = platform;
+				Id = id;
+				Platform = platform;
 			}
 
 			public void MovingPlatform(CellPoint[,] cellPoints, float height)
 			{
-				_platform.Move(cellPoints, height);
+				Platform.Move(cellPoints, height);
 			}
 
 			public void MovePlatform(float y)
 			{
-				_platform.Destination = y;
+				Platform.Destination = y;
 			}
 
 			public void DrawPlatform(Graphics graphics)
 			{
-				_platform.Draw(graphics);
+				Platform.Draw(graphics);
 			}
 
-			public void Start(float H)
+			public void Start(float h)
 			{
-				_score = 0;
-				_platform.StartMove(H);
+				Score = 0;
+				Platform.StartMove(h);
 			}
 
 			public void Stop()
 			{
-				_platform.StopMove();
+				Platform.StopMove();
 			}
 
 			public void StartBall()
 			{
-				_platform.CurrentBall.Angle = _id * _pi + (_pi / 2 * _random.Next() - _pi / 4);
-				_platform.CurrentBall.StartMove();
-				_platform.CurrentBall = _nullBall;
+				Platform.CurrentBall.Angle = Id * Pi + (Pi / 2 * s_random.Next() - Pi / 4);
+				Platform.CurrentBall.StartMove();
+				Platform.CurrentBall = s_nullBall;
 			}
 
-			public float Y => _platform.Y;
-			public int ID => _id;
-			public float Destination => _platform.Destination;
-			public int Score { get => _score; set { _score = value; } }
-			public Platform Platform => _platform;
+			public float Y => Platform.Y;
+			public int Id { get; }
+			public int Score { get; set; }
+			public Platform Platform { get; }
 		}
 
 		public class Board
 		{
-			private int _width;
-			private int _height;
+			private readonly float _width;
+			private readonly float _height;
 
-			private Ball _ball;
-			private PictureBox _picture;
-			private Label _score;
-			private TrackBar _trackVelocity;
-			private TrackBar _trackPlatformSize;
-			private TrackBar _trackBallSize;
+			private readonly Ball _ball;
+			private readonly PictureBox _picture;
+			private readonly Label _score;
+			private readonly TrackBar _trackVelocity;
+			private readonly TrackBar _trackPlatformSize;
+			private readonly TrackBar _trackBallSize;
 
-			private CellPoint[,] _points;
-			private Player[] _players = new Player[2];
+			private readonly CellPoint[,] _points;
+			private readonly Player[] _players = new Player[2];
 
 			public Board(PictureBox picture, Label score, TrackBar trackVelocity, TrackBar trackPlatformSize, TrackBar trackBallSize, int width, int height)
 			{
@@ -447,40 +431,40 @@ namespace PingPong
 
 				for (int x = 0; x < width; x++)
 					for (int y = 0; y < height; y++)
-						_points[x, y] = _wallPoint;
+						_points[x, y] = s_wallPoint;
 
 				for (int x = 10; x < width - 10; x++)
 					for (int y = 10; y < height - 10; y++)
-						_points[x, y] = _voidPoint;
+						_points[x, y] = s_voidPoint;
 
-				_ball = new RealBall(TickBall, trackBallSize.Value, trackVelocity.Value, width / 2, height / 2, 0);
+				_ball = new RealBall(TickBall, trackBallSize.Value, trackVelocity.Value, _width / 2, _height / 2, 0);
 
-				_players[0] = new Player(new Platform(_points, TickLeftPlatform, 15, trackPlatformSize.Value, 0.055F * width, height / 2), 0);
-				_players[1] = new Player(new Platform(_points, TickRightPlatform, 15, trackPlatformSize.Value, 0.945F * width, height / 2), 1);
+				_players[0] = new Player(new Platform(_points, TickLeftPlatform, 15, trackPlatformSize.Value, 0.055F * width, _width / 2), 0);
+				_players[1] = new Player(new Platform(_points, TickRightPlatform, 15, trackPlatformSize.Value, 0.945F * width, _height / 2), 1);
 
-				_gate1 = new GatePoint(_players[0]);
-				_gate2 = new GatePoint(_players[1]);
+				GatePoint gate1 = new(_players[0]);
+				GatePoint gate2 = new(_players[1]);
 
 				for (int x = 0; x < 10; x++)
 					for (int y = 10; y < height - 1; y++)
-						_points[x, y] = _gate1;
+						_points[x, y] = gate1;
 
 				for (int x = width - 10; x < width; x++)
 					for (int y = 10; y < height - 1; y++)
-						_points[x, y] = _gate2;
+						_points[x, y] = gate2;
 
 				_picture.Paint += Paint;
 				_picture.MouseMove += MouseMove;
 				_picture.Click += Click;
 
 				trackVelocity.Scroll += ScrollVelocity;
-				trackPlatformSize.Scroll += ScrollPlaformSize;
+				trackPlatformSize.Scroll += ScrollPlatformSize;
 				trackBallSize.Scroll += ScrollBallSize;
 			}
 
 			public void NewGame()
 			{
-				float alpha = _2pi * (float)_random.NextDouble();
+				float alpha = _2pi * (float)s_random.NextDouble();
 
 				_ball.X = _width / 2;
 				_ball.Y = _height / 2;
@@ -545,7 +529,7 @@ namespace PingPong
 				_ball.Velocity = _trackVelocity.Value;
 			}
 
-			private void ScrollPlaformSize(object sender, EventArgs e)
+			private void ScrollPlatformSize(object sender, EventArgs e)
 			{
 				foreach (Player player in _players)
 					player.Platform.Height = _trackPlatformSize.Value;
@@ -609,7 +593,7 @@ namespace PingPong
 
 		private void tsmGameInfo_Click(object sender, EventArgs e)
 		{
-			GameInfo gameInfo = new GameInfo();
+			GameInfo gameInfo = new();
 			gameInfo.ShowDialog();
 		}
 	}

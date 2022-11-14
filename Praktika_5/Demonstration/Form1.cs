@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+// ReSharper disable StringLiteralTypo
 
 namespace Demonstration
 {
@@ -22,11 +22,11 @@ namespace Demonstration
 
 				string dirPath = $@"{txtPath.Text}";
 
-				List<string> dirs = new List<string>(Directory.EnumerateDirectories(dirPath));
+				List<string> dirs = new(Directory.EnumerateDirectories(dirPath));
 
-				foreach (var dir in dirs)
+				foreach (string dir in dirs)
 				{
-					richTextBox.Text += $"{dir.Substring(dir.LastIndexOf("\\") + 1)}\n";
+					richTextBox.Text += $"{dir.Substring(dir.LastIndexOf("\\", StringComparison.Ordinal) + 1)}\n";
 				}
 				richTextBox.Text += $"\n{dirs.Count} каталогов найдено.";
 			}
@@ -34,9 +34,9 @@ namespace Demonstration
 			{
 				MessageBox.Show($"\nНе удалось найти указанный путь: {txtPath.Text}!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-			catch (UnauthorizedAccessException UAEx)
+			catch (UnauthorizedAccessException uaEx)
 			{
-				richTextBox.Text += $"\n{UAEx.Message}";
+				richTextBox.Text += $"\n{uaEx.Message}";
 			}
 			catch (PathTooLongException)
 			{
@@ -56,19 +56,20 @@ namespace Demonstration
 								File = file
 							};
 
-				foreach (var file in files)
+				var filesList = files.ToList();
+				foreach (var file in filesList)
 				{
 					richTextBox.Text += $"{Path.GetFileName(file.File)}\n";
 				}
-				richTextBox.Text += $"\n{files.Count()} файлов найдено.";
+				richTextBox.Text += $"\n{filesList.Count()} файлов найдено.";
 			}
 			catch (DirectoryNotFoundException)
 			{
 				MessageBox.Show($"\nНе удалось найти указанный путь: {txtPath.Text}!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
-			catch (UnauthorizedAccessException UAEx)
+			catch (UnauthorizedAccessException uaEx)
 			{
-				richTextBox.Text += $"\n{UAEx.Message}";
+				richTextBox.Text += $"\n{uaEx.Message}";
 			}
 			catch (PathTooLongException)
 			{
@@ -82,13 +83,13 @@ namespace Demonstration
 
 			try
 			{
-				DirectoryInfo dirPrograms = new DirectoryInfo($@"{txtPath.Text}");
+				DirectoryInfo dirPrograms = new($@"{txtPath.Text}");
 
 				if (int.TryParse(txtTask3Year.Text, out _) && int.TryParse(txtTask3Month.Text, out _) && int.TryParse(txtTask3Day.Text, out _))
 				{
 					try
 					{
-						DateTime startOf = new DateTime(int.Parse(txtTask3Year.Text), int.Parse(txtTask3Month.Text), int.Parse(txtTask3Day.Text));
+						DateTime startOf = new(int.Parse(txtTask3Year.Text), int.Parse(txtTask3Month.Text), int.Parse(txtTask3Day.Text));
 
 						var dirs = from dir in dirPrograms.EnumerateDirectories()
 								   where dir.CreationTimeUtc > startOf
@@ -101,15 +102,15 @@ namespace Demonstration
 							richTextBox.Text += $"{dir.ProgDir.Name}\n";
 						}
 					}
-					catch (UnauthorizedAccessException UAEx)
+					catch (UnauthorizedAccessException uaEx)
 					{
-						richTextBox.Text += $"\n{UAEx.Message}";
+						richTextBox.Text += $"\n{uaEx.Message}";
 					}
 					catch (PathTooLongException)
 					{
 						MessageBox.Show("Путь файла слишком большой!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
-					catch (System.ArgumentOutOfRangeException)
+					catch (ArgumentOutOfRangeException)
 					{
 						MessageBox.Show("Введите дату в правильном формате!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					}
@@ -129,7 +130,7 @@ namespace Demonstration
 		{
 			richTextBox.Clear();
 
-			DirectoryInfo dirTop = new DirectoryInfo($@"{txtPath.Text}");
+			DirectoryInfo dirTop = new($@"{txtPath.Text}");
 
 			if (double.TryParse(txtTask4.Text, out _))
 			{
@@ -144,9 +145,9 @@ namespace Demonstration
 								richTextBox.Text += $"{file.FullName}\t\t{file.Length:N0}\n";
 							}
 						}
-						catch (UnauthorizedAccessException UAEx)
+						catch (UnauthorizedAccessException uaEx)
 						{
-							richTextBox.Text += $"\n{UAEx.Message}";
+							richTextBox.Text += $"\n{uaEx.Message}";
 						}
 					}
 
@@ -163,15 +164,15 @@ namespace Demonstration
 										richTextBox.Text += $"{file.FullName}\t\t{file.Length:N0}\n";
 									}
 								}
-								catch (UnauthorizedAccessException UAEx)
+								catch (UnauthorizedAccessException uaEx)
 								{
-									richTextBox.Text += $"\n{UAEx.Message}";
+									richTextBox.Text += $"\n{uaEx.Message}";
 								}
 							}
 						}
-						catch (UnauthorizedAccessException UAEx)
+						catch (UnauthorizedAccessException uaEx)
 						{
-							richTextBox.Text += $"\n{UAEx.Message}";
+							richTextBox.Text += $"\n{uaEx.Message}";
 						}
 					}
 				}
@@ -179,9 +180,9 @@ namespace Demonstration
 				{
 					MessageBox.Show($"\nНе удалось найти указанный путь: {txtPath.Text}!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
-				catch (UnauthorizedAccessException UAEx)
+				catch (UnauthorizedAccessException uaEx)
 				{
-					richTextBox.Text += $"\n{UAEx.Message}";
+					richTextBox.Text += $"\n{uaEx.Message}";
 				}
 				catch (PathTooLongException)
 				{
@@ -196,7 +197,7 @@ namespace Demonstration
 
 		private void txtTask3Day_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (!char.IsDigit(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
+			if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
 			{
 				e.Handled = true;
 			}
@@ -212,7 +213,7 @@ namespace Demonstration
 
 		private void txtTask3Month_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (!char.IsDigit(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
+			if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
 			{
 				e.Handled = true;
 			}
@@ -228,7 +229,7 @@ namespace Demonstration
 
 		private void txtTask3Year_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (!char.IsDigit(e.KeyChar) && !(e.KeyChar == (char)Keys.Back))
+			if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
 			{
 				e.Handled = true;
 			}
@@ -248,7 +249,8 @@ namespace Demonstration
 			{
 				return;
 			}
-			else if ((e.KeyChar == '.' || e.KeyChar == ',') && !txtTask4.Text.Contains('.') && !txtTask4.Text.Contains(','))
+
+			if ((e.KeyChar == '.' || e.KeyChar == ',') && !txtTask4.Text.Contains('.') && !txtTask4.Text.Contains(','))
 			{
 				if (txtTask4.Text == "")
 				{
@@ -258,7 +260,6 @@ namespace Demonstration
 					return;
 				}
 				e.KeyChar = ',';
-				return;
 			}
 			else
 			{

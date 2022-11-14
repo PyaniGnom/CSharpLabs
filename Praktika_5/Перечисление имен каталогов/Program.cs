@@ -4,29 +4,29 @@ using System.IO;
 
 namespace Перечисление_имен_каталогов
 {
-	internal class Program
+	internal static class Program
 	{
-		static void Main()
+		private static void Main()
 		{
 			try
 			{
-				string dirPath = @"C:\Windows\System32";
+				const string dirPath = @"C:\Windows\System32";
 
-				List<string> dirs = new List<string>(Directory.EnumerateDirectories(dirPath));
+				List<string> dirs = new(Directory.EnumerateDirectories(dirPath));
 
-				foreach (var dir in dirs)
+				foreach (string dir in dirs)
 				{
-					Console.WriteLine($"{dir.Substring(dir.LastIndexOf("\\") + 1)}");
+					Console.WriteLine($"{dir.Substring(dir.LastIndexOf("\\", StringComparison.Ordinal) + 1)}");
 				}
 				Console.WriteLine($"\n{dirs.Count} directories found.");
 			}
-			catch (UnauthorizedAccessException UAEx)
+			catch (UnauthorizedAccessException uaEx)
 			{
-				Console.WriteLine(UAEx.Message);
+				Console.WriteLine(uaEx.Message);
 			}
-			catch (PathTooLongException PathEx)
+			catch (PathTooLongException pathEx)
 			{
-				Console.WriteLine(PathEx.Message);
+				Console.WriteLine(pathEx.Message);
 			}
 		}
 	}

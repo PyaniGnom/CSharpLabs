@@ -5,58 +5,58 @@ namespace GameOfLife
 	public class GameEngine
 	{
 		public uint CurrentGeneration { get; private set; }
-		private bool[,] field;
-		private readonly int rows;
-		private readonly int cols;
+		private bool[,] _field;
+		private readonly int _rows;
+		private readonly int _cols;
 
 		public GameEngine(int rows, int cols, int density)
 		{
-			this.rows = rows;
-			this.cols = cols;
-			field = new bool[cols, rows];
+			_rows = rows;
+			_cols = cols;
+			_field = new bool[cols, rows];
 
 			Random random = new Random();
 			for (int x = 0; x < cols; x++)
 			{
 				for (int y = 0; y < rows; y++)
 				{
-					field[x, y] = random.Next(density) == 0;
+					_field[x, y] = random.Next(density) == 0;
 				}
 			}
 		}
 
 		public void NextGeneration()
 		{
-			var newField = new bool[cols, rows];
+			bool[,] newField = new bool[_cols, _rows];
 
-			for (int x = 0; x < cols; x++)
+			for (int x = 0; x < _cols; x++)
 			{
-				for (int y = 0; y < rows; y++)
+				for (int y = 0; y < _rows; y++)
 				{
-					var neighboursCount = CountNeighbours(x, y);
-					var hasLife = field[x, y];
+					int neighboursCount = CountNeighbours(x, y);
+					bool hasLife = _field[x, y];
 
 					if (!hasLife && neighboursCount == 3)
 						newField[x, y] = true;
 					else if (hasLife && (neighboursCount < 2 || neighboursCount > 3))
 						newField[x, y] = false;
 					else
-						newField[x, y] = field[x, y];
+						newField[x, y] = _field[x, y];
 				}
 			}
-			field = newField;
+			_field = newField;
 			CurrentGeneration++;
 		}
 
 		public bool[,] GetCurrentGeneration()
 		{
-			var result = new bool[cols, rows];
+			bool[,] result = new bool[_cols, _rows];
 
-			for (int x = 0; x < cols; x++)
+			for (int x = 0; x < _cols; x++)
 			{
-				for (int y = 0; y < rows; y++)
+				for (int y = 0; y < _rows; y++)
 				{
-					result[x, y] = field[x, y];
+					result[x, y] = _field[x, y];
 				}
 			}
 
@@ -71,11 +71,11 @@ namespace GameOfLife
 			{
 				for (int j = -1; j < 2; j++)
 				{
-					var col = (x + i + cols) % cols;
-					var row = (y + j + rows) % rows;
+					int col = (x + i + _cols) % _cols;
+					int row = (y + j + _rows) % _rows;
 
-					var isSelfChecking = col == x && row == y;
-					var hasLife = field[col, row];
+					bool isSelfChecking = col == x && row == y;
+					bool hasLife = _field[col, row];
 
 					if (hasLife && !isSelfChecking)
 						count++;
@@ -87,13 +87,13 @@ namespace GameOfLife
 
 		private bool ValidateCellPosition(int x, int y)
 		{
-			return x >= 0 && y >= 0 && x < cols && y < rows;
+			return x >= 0 && y >= 0 && x < _cols && y < _rows;
 		}
 
 		private void UpdateCell(int x, int y, bool state)
 		{
 			if (ValidateCellPosition(x, y))
-				field[x, y] = state;
+				_field[x, y] = state;
 		}
 
 		public void AddCell(int x, int y)

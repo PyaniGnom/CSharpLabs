@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Создание_приложения_для_записи_данных_пользователя_в_файл
@@ -21,7 +15,7 @@ namespace Создание_приложения_для_записи_данных
 		private async void button1_Click(object sender, EventArgs e)
 		{
 			string myDocPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			sb.AppendLine("New User Input");
 			sb.AppendLine("= = = = = =");
@@ -29,10 +23,8 @@ namespace Создание_приложения_для_записи_данных
 			sb.AppendLine();
 			sb.AppendLine();
 
-			using (StreamWriter outfile = new StreamWriter(myDocPath + @"\UserInputFile.txt", true))
-			{
-				await outfile.WriteAsync(sb.ToString());
-			}
+			using StreamWriter outfile = new(myDocPath + @"\UserInputFile.txt", true);
+			await outfile.WriteAsync(sb.ToString());
 		}
 	}
 }

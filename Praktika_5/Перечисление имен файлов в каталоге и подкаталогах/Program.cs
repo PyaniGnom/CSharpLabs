@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+// ReSharper disable StringLiteralTypo
 
 namespace Перечисление_имен_файлов_в_каталоге_и_подкаталогах
 {
-	internal class Program
+	internal static class Program
 	{
-		static void Main()
+		private static void Main()
 		{
 			try
 			{
@@ -16,19 +17,20 @@ namespace Перечисление_имен_файлов_в_каталоге_и_
 								File = file
 							};
 
-				foreach (var f in files)
+				var filesList = files.ToList();
+				foreach (var file in filesList)
 				{
-					Console.WriteLine($"{Path.GetFileName(f.File)}");
+					Console.WriteLine($"{Path.GetFileName(file.File)}");
 				}
-				Console.WriteLine($"{files.Count()} files found.");
+				Console.WriteLine($"{filesList.Count()} files found.");
 			}
-			catch (UnauthorizedAccessException UAEx)
+			catch (UnauthorizedAccessException uaEx)
 			{
-				Console.WriteLine(UAEx.Message);
+				Console.WriteLine(uaEx.Message);
 			}
-			catch (PathTooLongException PathEx)
+			catch (PathTooLongException pathEx)
 			{
-				Console.WriteLine(PathEx.Message);
+				Console.WriteLine(pathEx.Message);
 			}
 		}
 	}

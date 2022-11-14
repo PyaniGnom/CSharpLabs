@@ -1,4 +1,3 @@
-D:\C_Sharp\Praktika_3\RandomTableGrid\bin\Debug\RandomTableGrid.exe.config
 D:\C_Sharp\Praktika_3\RandomTableGrid\bin\Debug\RandomTableGrid.exe
 D:\C_Sharp\Praktika_3\RandomTableGrid\bin\Debug\RandomTableGrid.pdb
 D:\C_Sharp\Praktika_3\RandomTableGrid\obj\Debug\RandomTableGrid.csproj.AssemblyReference.cache

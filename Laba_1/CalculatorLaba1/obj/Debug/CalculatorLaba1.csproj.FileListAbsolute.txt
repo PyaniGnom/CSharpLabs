@@ -1,0 +1,7 @@
+D:\C_Sharp\Laba_1\CalculatorLaba1\bin\Debug\CalculatorLaba1.exe
+D:\C_Sharp\Laba_1\CalculatorLaba1\bin\Debug\CalculatorLaba1.pdb
+D:\C_Sharp\Laba_1\CalculatorLaba1\obj\Debug\CalculatorLaba1.csproj.AssemblyReference.cache
+D:\C_Sharp\Laba_1\CalculatorLaba1\obj\Debug\CalculatorLaba1.csproj.SuggestedBindingRedirects.cache
+D:\C_Sharp\Laba_1\CalculatorLaba1\obj\Debug\CalculatorLaba1.csproj.CoreCompileInputs.cache
+D:\C_Sharp\Laba_1\CalculatorLaba1\obj\Debug\CalculatorLaba1.exe
+D:\C_Sharp\Laba_1\CalculatorLaba1\obj\Debug\CalculatorLaba1.pdb

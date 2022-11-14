@@ -1,5 +1,4 @@
 D:\C_Sharp\Laba_4\CompanyDataBase\bin\Debug\LR4.accdb
-D:\C_Sharp\Laba_4\CompanyDataBase\bin\Debug\CompanyDataBase.exe.config
 D:\C_Sharp\Laba_4\CompanyDataBase\bin\Debug\CompanyDataBase.exe
 D:\C_Sharp\Laba_4\CompanyDataBase\bin\Debug\CompanyDataBase.pdb
 D:\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.csproj.AssemblyReference.cache

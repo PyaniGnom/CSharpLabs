@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -6,9 +7,9 @@ namespace Calculator
 {
 	public partial class Form1 : Form
 	{
-		private double _firstValue;
-		private double _secondValue;
-		private double _result;
+		private float _firstValue;
+		private float _secondValue;
+		private float _result;
 
 		public Form1()
 		{
@@ -17,36 +18,30 @@ namespace Calculator
 
 		private bool FillingFields()
 		{
-			if (tFirstValue.Text == "" || tSecondValue.Text == "")
-			{
-				MessageBox.Show("Заполните все поля!");
-				return false;
-			}
-			else
+			if (tFirstValue.Text != "" && tSecondValue.Text != "")
 			{
 				return true;
 			}
+
+			MessageBox.Show("Заполните все поля!");
+			return false;
 		}
 
-		private bool Converting()
+		private bool CheckingConverting()
 		{
-			if (double.TryParse(tFirstValue.Text.Replace('.', ','), out _firstValue))
+			if (float.TryParse(tFirstValue.Text.Replace('.', ','), out _firstValue))
 			{
-				if(double.TryParse(tSecondValue.Text.Replace('.', ','), out _secondValue))
+				if(float.TryParse(tSecondValue.Text.Replace('.', ','), out _secondValue))
 				{
 					return true;
 				}
-				else
-				{
-					MessageBox.Show("Введите второе значение корректно!");
-					return false;
-				}
-			}
-			else
-			{
-				MessageBox.Show("Введите первое значение корректно!");
+
+				MessageBox.Show("Введите второе значение корректно!");
 				return false;
 			}
+
+			MessageBox.Show("Введите первое значение корректно!");
+			return false;
 		}
 
 		private void tFirstValue_KeyPress(object sender, KeyPressEventArgs e)
@@ -55,25 +50,36 @@ namespace Calculator
 			{
 				return;
 			}
-			else if ((e.KeyChar == '.' || e.KeyChar == ',') && !tFirstValue.Text.Contains('.') && !tFirstValue.Text.Contains(','))
+
+			switch (e.KeyChar)
 			{
-				if (tFirstValue.Text == "" || tFirstValue.Text == "-")
-				{
-					tFirstValue.Text = "0,";
-					tFirstValue.SelectionStart = tFirstValue.TextLength;
-					e.Handled = true;
+				case '.' or ',' when !tFirstValue.Text.Contains('.') && !tFirstValue.Text.Contains(','):
+					{
+						if (tFirstValue.Text == "" || tFirstValue.Text == "-")
+						{
+							if (tFirstValue.Text == "-")
+							{
+								tFirstValue.Text = "-0,";
+								tFirstValue.SelectionStart = tFirstValue.TextLength;
+								e.Handled = true;
+								return;
+							}
+
+							tFirstValue.Text = "0,";
+							tFirstValue.SelectionStart = tFirstValue.TextLength;
+							e.Handled = true;
+							return;
+						}
+						e.KeyChar = ',';
+						break;
+					}
+
+				case '-' when tFirstValue.Text == "":
 					return;
-				}
-				e.KeyChar = ',';
-				return;
-			}
-			else if (e.KeyChar == '-' && tFirstValue.Text == "")
-			{
-				return;
-			}
-			else
-			{
-				e.Handled = true;
+
+				default:
+					e.Handled = true;
+					break;
 			}
 		}
 
@@ -83,97 +89,116 @@ namespace Calculator
 			{
 				return;
 			}
-			else if ((e.KeyChar == '.' || e.KeyChar == ',') && !tSecondValue.Text.Contains('.') && !tSecondValue.Text.Contains(','))
+
+			switch (e.KeyChar)
 			{
-				if (tSecondValue.Text == "" || tSecondValue.Text == "-")
-				{
-					tSecondValue.Text = "0,";
-					tSecondValue.SelectionStart = tSecondValue.TextLength;
-					e.Handled = true;
+				case '.' or ',' when !tSecondValue.Text.Contains('.') && !tSecondValue.Text.Contains(','):
+					{
+						if (tSecondValue.Text == "" || tSecondValue.Text == "-")
+						{
+							if (tSecondValue.Text == "-")
+							{
+								tSecondValue.Text = "-0,";
+								tSecondValue.SelectionStart = tSecondValue.TextLength;
+								e.Handled = true;
+								return;
+							}
+
+							tSecondValue.Text = "0,";
+							tSecondValue.SelectionStart = tSecondValue.TextLength;
+							e.Handled = true;
+							return;
+						}
+						e.KeyChar = ',';
+						break;
+					}
+
+				case '-' when tSecondValue.Text == "":
 					return;
-				}
-				e.KeyChar = ',';
-				return;
-			}
-			else if (e.KeyChar == '-' && tSecondValue.Text == "")
-			{
-				return;
-			}
-			else
-			{
-				e.Handled = true;
+
+				default:
+					e.Handled = true;
+					break;
 			}
 		}
 
 		private void bAddiction_Click(object sender, EventArgs e)
 		{
-			if (FillingFields())
+			if (!FillingFields())
 			{
-				if (Converting())
-				{
-					_result = _firstValue + _secondValue;
-					tResult.Text = Convert.ToString(_result);
-				}
-				else
-				{
-					tResult.Text = "";
-				}
+				return;
+			}
+
+			if (CheckingConverting())
+			{
+				_result = _firstValue + _secondValue;
+				tResult.Text = Convert.ToString(_result, CultureInfo.InvariantCulture);
+			}
+			else
+			{
+				tResult.Text = "";
 			}
 		}
 
 		private void bSubtraction_Click(object sender, EventArgs e)
 		{
-			if (FillingFields())
+			if (!FillingFields())
 			{
-				if (Converting())
-				{
-					_result = _firstValue - _secondValue;
-					tResult.Text = Convert.ToString(_result);
-				}
-				else
-				{
-					tResult.Text = "";
-				}
-			}			
+				return;
+			}
+
+			if (CheckingConverting())
+			{
+				_result = _firstValue - _secondValue;
+				tResult.Text = Convert.ToString(_result, CultureInfo.InvariantCulture);
+			}
+			else
+			{
+				tResult.Text = "";
+			}
 		}
 
 		private void bMultiply_Click(object sender, EventArgs e)
 		{
-			if (FillingFields())
+			if (!FillingFields())
 			{
-				if (Converting())
-				{
-					_result = _firstValue * _secondValue;
-					tResult.Text = Convert.ToString(_result);
-				}
-				else
-				{
-					tResult.Text = "";
-				}
-			}			
+				return;
+			}
+
+			if (CheckingConverting())
+			{
+				_result = _firstValue * _secondValue;
+				tResult.Text = Convert.ToString(_result, CultureInfo.InvariantCulture);
+			}
+			else
+			{
+				tResult.Text = "";
+			}
 		}
 
 		private void bDivide_Click(object sender, EventArgs e)
 		{
-			if (FillingFields())
+			if (!FillingFields())
 			{
-				if (Converting())
+				return;
+			}
+
+			if (CheckingConverting())
+			{
+				if (_secondValue == 0)
 				{
-					if (_secondValue == 0)
-					{
-						MessageBox.Show("На ноль делить нельзя!");
-						tResult.Text = "";
-					}
-					else
-					{
-						_result = _firstValue / _secondValue;
-						tResult.Text = Convert.ToString(_result);
-					}
+					MessageBox.Show("На ноль делить нельзя!");
+					tResult.Text = "";
 				}
 				else
 				{
-					tResult.Text = "";
+					_result = _firstValue / _secondValue;
+					tResult.Text = Convert.ToString(_result, CultureInfo.InvariantCulture);
 				}
+			}
+			else
+			{
+				tResult.Text = "";
 			}
 		}
 
