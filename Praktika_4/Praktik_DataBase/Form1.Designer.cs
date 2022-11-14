@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.tsmFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,6 +36,15 @@
 			this.tsmTable2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsmExit = new System.Windows.Forms.ToolStripMenuItem();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.lblYear = new System.Windows.Forms.Label();
+			this.txtYear = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.lblTitle = new System.Windows.Forms.Label();
+			this.txtTitle = new System.Windows.Forms.TextBox();
+			this.lblAuthor = new System.Windows.Forms.Label();
+			this.txtAuthor = new System.Windows.Forms.TextBox();
+			this.lblCode = new System.Windows.Forms.Label();
+			this.txtCode = new System.Windows.Forms.TextBox();
 			this.lblSearch = new System.Windows.Forms.Label();
 			this.lblError = new System.Windows.Forms.Label();
 			this.btnReset = new System.Windows.Forms.Button();
@@ -49,15 +58,6 @@
 			this.btnEdit = new System.Windows.Forms.ToolStripButton();
 			this.btnSaveEdit = new System.Windows.Forms.ToolStripButton();
 			this.btnClear = new System.Windows.Forms.ToolStripButton();
-			this.lblCode = new System.Windows.Forms.Label();
-			this.txtCode = new System.Windows.Forms.TextBox();
-			this.lblAuthor = new System.Windows.Forms.Label();
-			this.txtAuthor = new System.Windows.Forms.TextBox();
-			this.lblTitle = new System.Windows.Forms.Label();
-			this.txtTitle = new System.Windows.Forms.TextBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.lblYear = new System.Windows.Forms.Label();
-			this.txtYear = new System.Windows.Forms.TextBox();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
@@ -114,6 +114,7 @@
 			this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+			this.splitContainer1.IsSplitterFixed = true;
 			this.splitContainer1.Location = new System.Drawing.Point(0, 52);
 			this.splitContainer1.Name = "splitContainer1";
 			// 
@@ -140,6 +141,94 @@
 			this.splitContainer1.Size = new System.Drawing.Size(1122, 609);
 			this.splitContainer1.SplitterDistance = 322;
 			this.splitContainer1.TabIndex = 2;
+			// 
+			// lblYear
+			// 
+			this.lblYear.AutoSize = true;
+			this.lblYear.Font = new System.Drawing.Font("Century Gothic", 11.75F);
+			this.lblYear.Location = new System.Drawing.Point(20, 410);
+			this.lblYear.Name = "lblYear";
+			this.lblYear.Size = new System.Drawing.Size(113, 21);
+			this.lblYear.TabIndex = 48;
+			this.lblYear.Text = "Год_выпуска:";
+			// 
+			// txtYear
+			// 
+			this.txtYear.Font = new System.Drawing.Font("Century Gothic", 11.5F);
+			this.txtYear.Location = new System.Drawing.Point(24, 440);
+			this.txtYear.Name = "txtYear";
+			this.txtYear.Size = new System.Drawing.Size(147, 26);
+			this.txtYear.TabIndex = 47;
+			this.txtYear.Click += new System.EventHandler(this.txtYear_Click);
+			this.txtYear.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCode_KeyPress);
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label1.Location = new System.Drawing.Point(-3, 130);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(332, 18);
+			this.label1.TabIndex = 46;
+			this.label1.Text = "____________________________________";
+			// 
+			// lblTitle
+			// 
+			this.lblTitle.AutoSize = true;
+			this.lblTitle.Font = new System.Drawing.Font("Century Gothic", 11.75F);
+			this.lblTitle.Location = new System.Drawing.Point(20, 330);
+			this.lblTitle.Name = "lblTitle";
+			this.lblTitle.Size = new System.Drawing.Size(210, 21);
+			this.lblTitle.TabIndex = 45;
+			this.lblTitle.Text = "Название_произведения:";
+			// 
+			// txtTitle
+			// 
+			this.txtTitle.Font = new System.Drawing.Font("Century Gothic", 11.5F);
+			this.txtTitle.Location = new System.Drawing.Point(24, 360);
+			this.txtTitle.Name = "txtTitle";
+			this.txtTitle.Size = new System.Drawing.Size(200, 26);
+			this.txtTitle.TabIndex = 44;
+			this.txtTitle.Click += new System.EventHandler(this.txtTitle_Click);
+			// 
+			// lblAuthor
+			// 
+			this.lblAuthor.AutoSize = true;
+			this.lblAuthor.Font = new System.Drawing.Font("Century Gothic", 11.75F);
+			this.lblAuthor.Location = new System.Drawing.Point(20, 250);
+			this.lblAuthor.Name = "lblAuthor";
+			this.lblAuthor.Size = new System.Drawing.Size(61, 21);
+			this.lblAuthor.TabIndex = 43;
+			this.lblAuthor.Text = "Автор:";
+			// 
+			// txtAuthor
+			// 
+			this.txtAuthor.Font = new System.Drawing.Font("Century Gothic", 11.5F);
+			this.txtAuthor.Location = new System.Drawing.Point(24, 280);
+			this.txtAuthor.Name = "txtAuthor";
+			this.txtAuthor.Size = new System.Drawing.Size(200, 26);
+			this.txtAuthor.TabIndex = 42;
+			this.txtAuthor.Click += new System.EventHandler(this.txtAuthor_Click);
+			// 
+			// lblCode
+			// 
+			this.lblCode.AutoSize = true;
+			this.lblCode.Font = new System.Drawing.Font("Century Gothic", 11.75F);
+			this.lblCode.Location = new System.Drawing.Point(20, 170);
+			this.lblCode.Name = "lblCode";
+			this.lblCode.Size = new System.Drawing.Size(94, 21);
+			this.lblCode.TabIndex = 41;
+			this.lblCode.Text = "Код_книги:";
+			// 
+			// txtCode
+			// 
+			this.txtCode.Font = new System.Drawing.Font("Century Gothic", 11.5F);
+			this.txtCode.Location = new System.Drawing.Point(24, 200);
+			this.txtCode.Name = "txtCode";
+			this.txtCode.Size = new System.Drawing.Size(147, 26);
+			this.txtCode.TabIndex = 40;
+			this.txtCode.Click += new System.EventHandler(this.txtCode_Click);
+			this.txtCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCode_KeyPress);
 			// 
 			// lblSearch
 			// 
@@ -201,14 +290,14 @@
 			this.dataGridView.AllowUserToResizeRows = false;
 			this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
 			this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
-			dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle12.BackColor = System.Drawing.Color.PaleTurquoise;
-			dataGridViewCellStyle12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.GrayText;
-			dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle1.BackColor = System.Drawing.Color.PaleTurquoise;
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.GrayText;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.dataGridView.EnableHeadersVisualStyles = false;
@@ -298,94 +387,6 @@
 			this.btnClear.Size = new System.Drawing.Size(66, 22);
 			this.btnClear.Text = "Очистить";
 			this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-			// 
-			// lblCode
-			// 
-			this.lblCode.AutoSize = true;
-			this.lblCode.Font = new System.Drawing.Font("Century Gothic", 11.75F);
-			this.lblCode.Location = new System.Drawing.Point(20, 170);
-			this.lblCode.Name = "lblCode";
-			this.lblCode.Size = new System.Drawing.Size(94, 21);
-			this.lblCode.TabIndex = 41;
-			this.lblCode.Text = "Код_книги:";
-			// 
-			// txtCode
-			// 
-			this.txtCode.Font = new System.Drawing.Font("Century Gothic", 11.5F);
-			this.txtCode.Location = new System.Drawing.Point(24, 200);
-			this.txtCode.Name = "txtCode";
-			this.txtCode.Size = new System.Drawing.Size(147, 26);
-			this.txtCode.TabIndex = 40;
-			this.txtCode.Click += new System.EventHandler(this.txtCode_Click);
-			this.txtCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCode_KeyPress);
-			// 
-			// lblAuthor
-			// 
-			this.lblAuthor.AutoSize = true;
-			this.lblAuthor.Font = new System.Drawing.Font("Century Gothic", 11.75F);
-			this.lblAuthor.Location = new System.Drawing.Point(20, 250);
-			this.lblAuthor.Name = "lblAuthor";
-			this.lblAuthor.Size = new System.Drawing.Size(61, 21);
-			this.lblAuthor.TabIndex = 43;
-			this.lblAuthor.Text = "Автор:";
-			// 
-			// txtAuthor
-			// 
-			this.txtAuthor.Font = new System.Drawing.Font("Century Gothic", 11.5F);
-			this.txtAuthor.Location = new System.Drawing.Point(24, 280);
-			this.txtAuthor.Name = "txtAuthor";
-			this.txtAuthor.Size = new System.Drawing.Size(200, 26);
-			this.txtAuthor.TabIndex = 42;
-			this.txtAuthor.Click += new System.EventHandler(this.txtAuthor_Click);
-			// 
-			// lblTitle
-			// 
-			this.lblTitle.AutoSize = true;
-			this.lblTitle.Font = new System.Drawing.Font("Century Gothic", 11.75F);
-			this.lblTitle.Location = new System.Drawing.Point(20, 330);
-			this.lblTitle.Name = "lblTitle";
-			this.lblTitle.Size = new System.Drawing.Size(210, 21);
-			this.lblTitle.TabIndex = 45;
-			this.lblTitle.Text = "Название_произведения:";
-			// 
-			// txtTitle
-			// 
-			this.txtTitle.Font = new System.Drawing.Font("Century Gothic", 11.5F);
-			this.txtTitle.Location = new System.Drawing.Point(24, 360);
-			this.txtTitle.Name = "txtTitle";
-			this.txtTitle.Size = new System.Drawing.Size(200, 26);
-			this.txtTitle.TabIndex = 44;
-			this.txtTitle.Click += new System.EventHandler(this.txtTitle_Click);
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.label1.Location = new System.Drawing.Point(-3, 130);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(332, 18);
-			this.label1.TabIndex = 46;
-			this.label1.Text = "____________________________________";
-			// 
-			// lblYear
-			// 
-			this.lblYear.AutoSize = true;
-			this.lblYear.Font = new System.Drawing.Font("Century Gothic", 11.75F);
-			this.lblYear.Location = new System.Drawing.Point(20, 410);
-			this.lblYear.Name = "lblYear";
-			this.lblYear.Size = new System.Drawing.Size(113, 21);
-			this.lblYear.TabIndex = 48;
-			this.lblYear.Text = "Год_выпуска:";
-			// 
-			// txtYear
-			// 
-			this.txtYear.Font = new System.Drawing.Font("Century Gothic", 11.5F);
-			this.txtYear.Location = new System.Drawing.Point(24, 440);
-			this.txtYear.Name = "txtYear";
-			this.txtYear.Size = new System.Drawing.Size(147, 26);
-			this.txtYear.TabIndex = 47;
-			this.txtYear.Click += new System.EventHandler(this.txtYear_Click);
-			this.txtYear.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCode_KeyPress);
 			// 
 			// Form1
 			// 

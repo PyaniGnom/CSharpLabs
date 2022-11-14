@@ -27,6 +27,7 @@ namespace CompanyDataBase
 			_dataSet.Tables.Add("Default");
 			_dataSet.Tables.Add("Task1");
 			_dataSet.Tables.Add("Task2");
+			_dataSet.Tables.Add("Task3");
 		}
 
 		private void LoadData()
@@ -60,6 +61,17 @@ namespace CompanyDataBase
 			_oleDbDataAdapter.Fill(_dataSet, "Task2");
 
 			dataGridView.DataSource = _dataSet.Tables["Task2"];
+		}
+
+		private void LoadDataTask3(string queryString)
+		{
+			_dataSet.Tables["Task3"].Clear();
+
+			_oleDbDataAdapter = new OleDbDataAdapter(queryString, _oleDbConnection);
+
+			_oleDbDataAdapter.Fill(_dataSet, "Task3");
+
+			dataGridView.DataSource = _dataSet.Tables["Task3"];
 		}
 
 		private void UpdateData()
@@ -169,6 +181,14 @@ namespace CompanyDataBase
 			}
 		}
 
+		private void btnThirdTask_Click(object sender, EventArgs e)
+		{
+			lblError.Visible = false;
+			offOtherElements();
+
+			LoadDataTask3(_queries.ThirdTask());
+		}
+
 		private void btnReplace_Click(object sender, EventArgs e)
 		{
 			lblError.Visible = false;
@@ -190,7 +210,7 @@ namespace CompanyDataBase
 			}
 			else
 			{
-				LoadDataTask2(_queries.ThirdTask(cbThirdTask.Text, txtThirdTask.Text));
+				LoadDataTask2(_queries.FourthTask(cbThirdTask.Text, txtThirdTask.Text));
 				LoadDataTask2(_queries.SecondTask(ref _searchCompanyName));
 
 				UpdateData();
@@ -209,12 +229,12 @@ namespace CompanyDataBase
 		{
 			if (dataGridView.DataSource == _dataSet.Tables["Default"])
 				LoadData();
-
 			else if (dataGridView.DataSource == _dataSet.Tables["Task1"])
 				LoadDataTask1(_queries.FirstTask());
-
-			else
+			else if (dataGridView.DataSource == _dataSet.Tables["Task2"])
 				LoadDataTask2(_queries.SecondTask(ref _searchCompanyName));
+			else
+				LoadDataTask3(_queries.ThirdTask());
 
 			UpdateData();
 		}

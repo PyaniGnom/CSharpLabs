@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.EditCompanyDBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +52,8 @@
 			this.btnSearch = new System.Windows.Forms.Button();
 			this.cbSecondTask = new System.Windows.Forms.ComboBox();
 			this.dataGridView = new System.Windows.Forms.DataGridView();
+			this.label6 = new System.Windows.Forms.Label();
+			this.btnThirdTask = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -145,6 +147,8 @@
 			// 
 			// splitContainer1.Panel1
 			// 
+			this.splitContainer1.Panel1.Controls.Add(this.btnThirdTask);
+			this.splitContainer1.Panel1.Controls.Add(this.label6);
 			this.splitContainer1.Panel1.Controls.Add(this.label5);
 			this.splitContainer1.Panel1.Controls.Add(this.label4);
 			this.splitContainer1.Panel1.Controls.Add(this.txtThirdTask);
@@ -161,7 +165,7 @@
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.dataGridView);
-			this.splitContainer1.Size = new System.Drawing.Size(1504, 712);
+			this.splitContainer1.Size = new System.Drawing.Size(1504, 732);
 			this.splitContainer1.SplitterDistance = 286;
 			this.splitContainer1.TabIndex = 3;
 			// 
@@ -169,7 +173,7 @@
 			// 
 			this.label5.AutoSize = true;
 			this.label5.Font = new System.Drawing.Font("Century Gothic", 11.75F);
-			this.label5.Location = new System.Drawing.Point(16, 420);
+			this.label5.Location = new System.Drawing.Point(14, 530);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(165, 21);
 			this.label5.TabIndex = 27;
@@ -179,7 +183,7 @@
 			// 
 			this.label4.AutoSize = true;
 			this.label4.Font = new System.Drawing.Font("Century Gothic", 11.75F);
-			this.label4.Location = new System.Drawing.Point(16, 320);
+			this.label4.Location = new System.Drawing.Point(14, 430);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(222, 42);
 			this.label4.TabIndex = 26;
@@ -188,7 +192,7 @@
 			// txtThirdTask
 			// 
 			this.txtThirdTask.Font = new System.Drawing.Font("Century Gothic", 11.5F);
-			this.txtThirdTask.Location = new System.Drawing.Point(20, 450);
+			this.txtThirdTask.Location = new System.Drawing.Point(18, 560);
 			this.txtThirdTask.Name = "txtThirdTask";
 			this.txtThirdTask.Size = new System.Drawing.Size(185, 26);
 			this.txtThirdTask.TabIndex = 25;
@@ -198,7 +202,7 @@
 			// btnReplace
 			// 
 			this.btnReplace.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.btnReplace.Location = new System.Drawing.Point(94, 510);
+			this.btnReplace.Location = new System.Drawing.Point(92, 620);
 			this.btnReplace.Name = "btnReplace";
 			this.btnReplace.Size = new System.Drawing.Size(96, 30);
 			this.btnReplace.TabIndex = 24;
@@ -211,7 +215,7 @@
 			this.cbThirdTask.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.cbThirdTask.Font = new System.Drawing.Font("Century Gothic", 11.5F);
 			this.cbThirdTask.FormattingEnabled = true;
-			this.cbThirdTask.Location = new System.Drawing.Point(20, 370);
+			this.cbThirdTask.Location = new System.Drawing.Point(18, 480);
 			this.cbThirdTask.Name = "cbThirdTask";
 			this.cbThirdTask.Size = new System.Drawing.Size(185, 28);
 			this.cbThirdTask.TabIndex = 23;
@@ -221,7 +225,7 @@
 			// 
 			this.label3.AutoSize = true;
 			this.label3.Font = new System.Drawing.Font("Times New Roman", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.label3.Location = new System.Drawing.Point(-2, 280);
+			this.label3.Location = new System.Drawing.Point(-2, 270);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(295, 19);
 			this.label3.TabIndex = 22;
@@ -263,7 +267,7 @@
 			this.lblError.AutoSize = true;
 			this.lblError.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.lblError.ForeColor = System.Drawing.Color.IndianRed;
-			this.lblError.Location = new System.Drawing.Point(20, 580);
+			this.lblError.Location = new System.Drawing.Point(18, 670);
 			this.lblError.Name = "lblError";
 			this.lblError.Size = new System.Drawing.Size(153, 18);
 			this.lblError.TabIndex = 18;
@@ -298,14 +302,14 @@
 			this.dataGridView.AllowUserToResizeRows = false;
 			this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
 			this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-			dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 10.75F);
-			dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 10.75F);
+			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.dataGridView.EnableHeadersVisualStyles = false;
@@ -319,15 +323,36 @@
 			this.dataGridView.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
 			this.dataGridView.RowTemplate.ReadOnly = true;
 			this.dataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-			this.dataGridView.Size = new System.Drawing.Size(1212, 710);
+			this.dataGridView.Size = new System.Drawing.Size(1212, 730);
 			this.dataGridView.TabIndex = 0;
 			this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Font = new System.Drawing.Font("Times New Roman", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label6.Location = new System.Drawing.Point(-2, 390);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(295, 19);
+			this.label6.TabIndex = 28;
+			this.label6.Text = "Задание 4___________________________";
+			// 
+			// btnThirdTask
+			// 
+			this.btnThirdTask.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnThirdTask.Location = new System.Drawing.Point(92, 325);
+			this.btnThirdTask.Name = "btnThirdTask";
+			this.btnThirdTask.Size = new System.Drawing.Size(100, 30);
+			this.btnThirdTask.TabIndex = 29;
+			this.btnThirdTask.Text = "Выполнить";
+			this.btnThirdTask.UseVisualStyleBackColor = true;
+			this.btnThirdTask.Click += new System.EventHandler(this.btnThirdTask_Click);
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1504, 761);
+			this.ClientSize = new System.Drawing.Size(1504, 781);
 			this.Controls.Add(this.splitContainer1);
 			this.Controls.Add(this.toolStrip1);
 			this.Controls.Add(this.menuStrip1);
@@ -375,5 +400,7 @@
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.ToolStripMenuItem EditProductDBToolStripMenuItem;
-	}
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnThirdTask;
+    }
 }
