@@ -11,3 +11,16 @@ D:\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.pdb
 D:\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.MainForm.resources
 D:\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.EditTable1Form.resources
 D:\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.EditTable2Form.resources
+D:\myrep\C_Sharp\Laba_4\CompanyDataBase\bin\Debug\LR4.accdb
+D:\myrep\C_Sharp\Laba_4\CompanyDataBase\bin\Debug\CompanyDataBase.exe
+D:\myrep\C_Sharp\Laba_4\CompanyDataBase\bin\Debug\CompanyDataBase.pdb
+D:\myrep\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.csproj.AssemblyReference.cache
+D:\myrep\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.csproj.SuggestedBindingRedirects.cache
+D:\myrep\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.EditTable1Form.resources
+D:\myrep\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.EditTable2Form.resources
+D:\myrep\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.MainForm.resources
+D:\myrep\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.Properties.Resources.resources
+D:\myrep\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.csproj.GenerateResource.cache
+D:\myrep\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.csproj.CoreCompileInputs.cache
+D:\myrep\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.exe
+D:\myrep\C_Sharp\Laba_4\CompanyDataBase\obj\Debug\CompanyDataBase.pdb

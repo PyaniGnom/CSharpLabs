@@ -9,3 +9,13 @@ D:\C_Sharp\Praktika_5\Demonstration\obj\Debug\Demonstration.csproj.GenerateResou
 D:\C_Sharp\Praktika_5\Demonstration\obj\Debug\Demonstration.csproj.CoreCompileInputs.cache
 D:\C_Sharp\Praktika_5\Demonstration\obj\Debug\Demonstration.exe
 D:\C_Sharp\Praktika_5\Demonstration\obj\Debug\Demonstration.pdb
+D:\myrep\C_Sharp\Praktika_5\Demonstration\bin\Debug\Demonstration.exe
+D:\myrep\C_Sharp\Praktika_5\Demonstration\bin\Debug\Demonstration.pdb
+D:\myrep\C_Sharp\Praktika_5\Demonstration\obj\Debug\Demonstration.csproj.AssemblyReference.cache
+D:\myrep\C_Sharp\Praktika_5\Demonstration\obj\Debug\Demonstration.csproj.SuggestedBindingRedirects.cache
+D:\myrep\C_Sharp\Praktika_5\Demonstration\obj\Debug\Demonstration.Form1.resources
+D:\myrep\C_Sharp\Praktika_5\Demonstration\obj\Debug\Demonstration.Properties.Resources.resources
+D:\myrep\C_Sharp\Praktika_5\Demonstration\obj\Debug\Demonstration.csproj.GenerateResource.cache
+D:\myrep\C_Sharp\Praktika_5\Demonstration\obj\Debug\Demonstration.csproj.CoreCompileInputs.cache
+D:\myrep\C_Sharp\Praktika_5\Demonstration\obj\Debug\Demonstration.exe
+D:\myrep\C_Sharp\Praktika_5\Demonstration\obj\Debug\Demonstration.pdb

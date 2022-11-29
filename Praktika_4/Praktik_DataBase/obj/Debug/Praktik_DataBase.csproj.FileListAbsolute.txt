@@ -10,3 +10,14 @@ D:\C_Sharp\Praktika_4\Praktik_DataBase\obj\Debug\Praktik_DataBase.csproj.Generat
 D:\C_Sharp\Praktika_4\Praktik_DataBase\obj\Debug\Praktik_DataBase.csproj.CoreCompileInputs.cache
 D:\C_Sharp\Praktika_4\Praktik_DataBase\obj\Debug\Praktik_DataBase.exe
 D:\C_Sharp\Praktika_4\Praktik_DataBase\obj\Debug\Praktik_DataBase.pdb
+D:\myrep\C_Sharp\Praktika_4\Praktik_DataBase\bin\Debug\Microsoft Access Database.accdb
+D:\myrep\C_Sharp\Praktika_4\Praktik_DataBase\bin\Debug\Praktik_DataBase.exe
+D:\myrep\C_Sharp\Praktika_4\Praktik_DataBase\bin\Debug\Praktik_DataBase.pdb
+D:\myrep\C_Sharp\Praktika_4\Praktik_DataBase\obj\Debug\Praktik_DataBase.csproj.AssemblyReference.cache
+D:\myrep\C_Sharp\Praktika_4\Praktik_DataBase\obj\Debug\Praktik_DataBase.csproj.SuggestedBindingRedirects.cache
+D:\myrep\C_Sharp\Praktika_4\Praktik_DataBase\obj\Debug\Praktik_DataBase.Form1.resources
+D:\myrep\C_Sharp\Praktika_4\Praktik_DataBase\obj\Debug\Praktik_DataBase.Properties.Resources.resources
+D:\myrep\C_Sharp\Praktika_4\Praktik_DataBase\obj\Debug\Praktik_DataBase.csproj.GenerateResource.cache
+D:\myrep\C_Sharp\Praktika_4\Praktik_DataBase\obj\Debug\Praktik_DataBase.csproj.CoreCompileInputs.cache
+D:\myrep\C_Sharp\Praktika_4\Praktik_DataBase\obj\Debug\Praktik_DataBase.exe
+D:\myrep\C_Sharp\Praktika_4\Praktik_DataBase\obj\Debug\Praktik_DataBase.pdb

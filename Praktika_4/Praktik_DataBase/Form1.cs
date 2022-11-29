@@ -12,6 +12,8 @@ namespace Praktik_DataBase
 
 		private int _selectedRow;
 		private bool _isEditing;
+		private string _connectionString =
+			@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=""D:\myrep\C_Sharp\Praktika_4\Praktik_DataBase\Microsoft Access Database.accdb"";Persist Security Info=True";
 
 		private OleDbConnection _oleDbConnection;
 		private OleDbCommandBuilder _oleDbBuilder;
@@ -102,7 +104,7 @@ namespace Praktik_DataBase
 		{
 			lblError.Visible = false;
 
-			_oleDbConnection = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\C_Sharp\Praktika_4\Praktik_DataBase\Microsoft Access Database.accdb;Persist Security Info=True");
+			_oleDbConnection = new OleDbConnection(_connectionString);
 
 			_oleDbConnection.Open();
 

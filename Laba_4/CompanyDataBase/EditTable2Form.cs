@@ -12,7 +12,7 @@ namespace CompanyDataBase
 		private int _selectedRow;
 		private bool _isEditing;
 		private const string ConnectionString =
-			@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\C_Sharp\Laba_4\CompanyDataBase\LR4.accdb;Persist Security Info=True";
+			@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\myrep\C_Sharp\Laba_4\CompanyDataBase\LR4.accdb;Persist Security Info=True";
 
 		private OleDbConnection _oleDbConnection;
 		private OleDbCommandBuilder _oleDbBuilder;
